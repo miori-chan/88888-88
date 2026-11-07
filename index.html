@@ -3,776 +3,486 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Miori Store - ร้านค้าน่ารัก & สังคมรีวิวสุดคาวาอี้</title>
+    <title>miori store ♡</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts (Mitr & Kanit for Thai + Gaegu/Fredoka for Cute Aesthetic) -->
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=Kanit:wght@300;400;500;600&family=Mali:wght@400;600;700&display=swap" rel="stylesheet">
-    
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'pink-pastel': '#FFECF2',
-                        'pink-main': '#FFB7C5',
-                        'pink-accent': '#FF85A1',
-                        'pink-dark': '#D85A7F',
-                        'cream-bg': '#FFFBF7',
-                        'lace-border': '#F4C2C2'
-                    },
-                    fontFamily: {
-                        mali: ['Mali', 'cursive'],
-                        fredoka: ['Fredoka', 'sans-serif'],
-                        kanit: ['Kanit', 'sans-serif']
-                    }
-                }
-            }
-        }
-    </script>
-    
+    <!-- Google Fonts: Itim & Mali for Kawaii Style -->
+    <link href="https://fonts.googleapis.com/css2?family=Itim&family=Mali:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: 'Kanit', sans-serif;
-            background-color: #FDF0F5;
-            background-image: radial-gradient(#FFC6D9 0.75px, transparent 0.75px), radial-gradient(#FFC6D9 0.75px, #FDF0F5 0.75px);
-            background-size: 30px 30px;
-            background-position: 0 0, 15px 15px;
+            font-family: 'Mali', 'Itim', cursive, sans-serif;
+            background-color: #fce4ec;
+            background-image: radial-gradient(#f8bbd0 1px, transparent 1px);
+            background-size: 20px 20px;
         }
-
-        /* Lace Border Frame Simulation */
-        .lace-card {
-            background-color: #FFFFFF;
-            border: 2px dashed #FFB7C5;
-            box-shadow: 0 4px 15px rgba(255, 183, 197, 0.3), inset 0 0 0 4px #FFF5F7;
-            border-radius: 20px;
-            position: relative;
-        }
-
-        .lace-card-header {
-            background: linear-gradient(135deg, #FFF0F4, #FFE4EC);
-            border-bottom: 2px dashed #FFB7C5;
-        }
-
-        /* Y2K / Cute Button Styles */
-        .btn-cute {
-            background: linear-gradient(180deg, #FFB7C5 0%, #FF85A1 100%);
-            color: white;
-            border: 2px solid #FFFFFF;
-            box-shadow: 0 4px 0px #D85A7F;
-            transition: all 0.1s ease;
-        }
-        .btn-cute:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 0px #D85A7F;
-        }
-        .btn-cute:active {
-            transform: translateY(2px);
-            box-shadow: 0 2px 0px #D85A7F;
-        }
-
-        .btn-secondary {
-            background: linear-gradient(180deg, #FFFFFF 0%, #FFF0F4 100%);
-            color: #FF85A1;
-            border: 2px solid #FFB7C5;
-            box-shadow: 0 4px 0px #FFC6D9;
-        }
-        .btn-secondary:hover {
-            background: #FFE4EC;
-            transform: translateY(-2px);
-        }
-
-        /* Custom Scrollbar */
+        /* Custom scrollbar */
         ::-webkit-scrollbar {
             width: 8px;
         }
         ::-webkit-scrollbar-track {
-            background: #FFF0F4;
+            background: #fce4ec;
         }
         ::-webkit-scrollbar-thumb {
-            background: #FFB7C5;
-            border-radius: 10px;
+            background: #f48fb1;
+            border-radius: 4px;
         }
-
-        /* Scallop Ribbon Top Banner Pattern */
-        .scallop-header {
-            background: #FFB7C5;
-            height: 12px;
-            mask: radial-gradient(circle at 6px 12px, transparent 6px, black 6.5px);
-            mask-size: 12px 12px;
-            mask-repeat: repeat-x;
+        /* Heart Lace Frame Effect */
+        .heart-lace-frame {
+            position: relative;
+            background: #fff;
+            padding: 6px;
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            box-shadow: 0 4px 15px rgba(244, 143, 177, 0.4);
+            border: 3px dashed #f48fb1;
+        }
+        /* Scalloped paper background card */
+        .scalloped-box {
+            background: #fff0f5;
+            border: 2px dashed #f8bbd0;
+            border-radius: 16px;
+            position: relative;
         }
     </style>
 </head>
-<body class="min-h-screen pb-12">
+<body class="min-h-screen py-4 px-2 flex justify-center items-start text-gray-700">
 
-    <!-- Top Ribbon Aesthetic Decorative Bar -->
-    <div class="w-full bg-pink-accent text-white text-xs py-1 text-center font-mali tracking-wide flex justify-between px-4 items-center">
-        <span><i class="fa-solid fa-ribbon mr-1"></i> Welcome to Miori Store 💕</span>
-        <button id="adminToggleBtn" onclick="toggleAdminPanel()" class="bg-white text-pink-dark px-3 py-0.5 rounded-full text-xs font-semibold hover:bg-pink-100 transition shadow-sm">
-            <i class="fa-solid fa-user-gear mr-1"></i> เข้าสู่ระบบแอดมิน (Admin Mode)
-        </button>
-    </div>
+    <!-- Mobile-First App Container (max-w-md for phone ratio) -->
+    <div class="w-full max-w-md bg-white/90 backdrop-blur-md rounded-3xl shadow-xl overflow-hidden border-4 border-pink-200 relative">
 
-    <!-- Main Outer Container (Centering & Max Width resembling layout wireframe) -->
-    <div class="max-w-4xl mx-auto px-3 sm:px-6 pt-4">
-
-        <!-- Outer Lace Frame Wrapper -->
-        <div class="lace-card p-4 sm:p-6 mb-6">
-            
-            <!-- SECTION 1: HEADER & MASCOT BANNER (เทียบเคียงกรอบบนสุดในแบบร่าง) -->
-            <div class="lace-card overflow-hidden mb-6 p-4 sm:p-6 bg-gradient-to-r from-pink-50 via-white to-pink-50">
-                <div class="flex flex-col sm:flex-row items-center gap-6">
-                    <!-- Banner / Mascot Display (ซ้าย: รูปมาสคอต) -->
-                    <div class="relative group flex-shrink-0">
-                        <img id="displayLogo" src="https://placehold.co/180x180/ffc6d9/ffffff?text=Miori+Mascot" alt="Miori Mascot" class="w-36 h-36 sm:w-44 sm:h-44 object-cover rounded-3xl border-4 border-white shadow-md transition transform group-hover:scale-105">
-                        <span class="absolute -bottom-2 -right-2 bg-pink-accent text-white p-2 rounded-full text-sm shadow">
-                            <i class="fa-solid fa-heart"></i>
-                        </span>
-                    </div>
-
-                    <!-- Header Bio & Details (ขวา: ชื่อร้านและข้อความต้อนรับ) -->
-                    <div class="flex-1 text-center sm:text-left space-y-3">
-                        <div class="inline-block px-3 py-1 bg-pink-100 text-pink-dark rounded-full text-xs font-bold font-mali">
-                            <i class="fa-solid fa-sparkles mr-1"></i> Official Cute Store & Reviews
-                        </div>
-                        <h1 id="displayStoreName" class="text-3xl sm:text-4xl font-bold font-mali text-pink-dark tracking-wide">
-                            miori store ✨
-                        </h1>
-                        <p id="displayStoreDesc" class="text-gray-600 text-sm sm:text-base leading-relaxed font-kanit">
-                            ยินดีต้อนรับสู่ miori store! ร้านรวมสินค้าสุดคาวาอี้และพื้นที่แบ่งปันรีวิวความประทับใจจากลูกค้าตัวน้อย เลือกชม สั่งซื้อ หรือร่วมรีวิวให้คะแนนร้านเราได้เลยน้า 💕
-                        </p>
-                        
-                        <!-- Status Badge & Meta -->
-                        <div class="pt-2 flex flex-wrap gap-2 justify-center sm:justify-start text-xs font-mali">
-                            <span class="px-3 py-1 rounded-full bg-emerald-100 text-emerald-700 font-medium border border-emerald-300">
-                                <i class="fa-solid fa-circle text-[8px] mr-1"></i> Store Status: Open! (✦⁠‿⁠✦⁠)
-                            </span>
-                            <span class="px-3 py-1 rounded-full bg-pink-100 text-pink-dark font-medium border border-pink-200">
-                                <i class="fa-solid fa-star text-amber-400 mr-1"></i> Rating: 4.9 / 5.0
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- SECTION 2: NAVIGATION BAR (ปรับปรุงลบปุ่มสินค้าและคำถามที่พบบ่อยออก) -->
-            <div class="mb-6">
-                <nav class="flex flex-wrap items-center justify-between gap-2 p-2 bg-pink-50 rounded-2xl border-2 border-pink-200">
-                    <div class="flex items-center gap-1 font-mali font-bold text-pink-dark text-sm px-2">
-                        <i class="fa-solid fa-compass"></i> Navigation
-                    </div>
-                    <div class="flex flex-wrap gap-2 text-xs sm:text-sm font-mali">
-                        <button onclick="switchTab('home')" id="nav-home" class="px-4 py-1.5 rounded-xl font-bold btn-cute transition">
-                            <i class="fa-solid fa-house mr-1"></i> หน้าแรก
-                        </button>
-                        <button onclick="switchTab('reviews')" id="nav-reviews" class="px-4 py-1.5 rounded-xl font-bold btn-secondary transition">
-                            <i class="fa-solid fa-comments mr-1"></i> รีวิวร้านค้า (<span id="reviewCountBadge">0</span>)
-                        </button>
-                    </div>
-                </nav>
-            </div>
-
-            <!-- ADMIN MANAGEMENT PANEL (แทรกไว้แบบสลับปิด-เปิดได้ สำหรับแอดมินจัดการ) -->
-            <div id="adminPanel" class="hidden mb-6 p-5 bg-amber-50 rounded-2xl border-2 border-amber-300 shadow-inner">
-                <div class="flex items-center justify-between mb-4 pb-2 border-b-2 border-amber-200">
-                    <h2 class="text-lg font-bold text-amber-900 font-mali">
-                        <i class="fa-solid fa-sliders text-amber-600 mr-2"></i> แผงควบคุมระบบหลังบ้าน (Admin Dashboard)
-                    </h2>
-                    <span class="text-xs bg-amber-200 text-amber-900 px-2.5 py-1 rounded-full font-bold">โหมดแอดมินกำลังทำงาน</span>
-                </div>
-
-                <!-- Admin Tabs Grid -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <!-- Config Store Info -->
-                    <div class="bg-white p-4 rounded-xl border border-amber-200 shadow-sm space-y-3">
-                        <h3 class="font-bold text-sm text-gray-700 flex items-center">
-                            <i class="fa-solid fa-pen-to-square text-pink-accent mr-2"></i> แก้ไขข้อมูลร้านค้า
-                        </h3>
-                        <div>
-                            <label class="block text-xs font-semibold text-gray-600 mb-1">ชื่อร้านค้า</label>
-                            <input type="text" id="inputStoreName" class="w-full text-xs p-2 border border-pink-200 rounded-lg focus:outline-pink-accent">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-semibold text-gray-600 mb-1">คำอธิบายร้านค้า</label>
-                            <textarea id="inputStoreDesc" rows="2" class="w-full text-xs p-2 border border-pink-200 rounded-lg focus:outline-pink-accent"></textarea>
-                        </div>
-                        <div>
-                            <label class="block text-xs font-semibold text-gray-600 mb-1">URL รูปโลโก้/มาสคอต</label>
-                            <input type="text" id="inputStoreLogo" class="w-full text-xs p-2 border border-pink-200 rounded-lg focus:outline-pink-accent">
-                        </div>
-                        <button onclick="saveStoreSettings()" class="w-full py-2 btn-cute rounded-lg text-xs font-bold">
-                            <i class="fa-solid fa-floppy-disk mr-1"></i> บันทึกการเปลี่ยนแปลงร้านค้า
-                        </button>
-                    </div>
-
-                    <!-- Manage Connect With Us (Social Links Manager) -->
-                    <div class="bg-white p-4 rounded-xl border border-amber-200 shadow-sm space-y-3">
-                        <h3 class="font-bold text-sm text-gray-700 flex items-center">
-                            <i class="fa-solid fa-share-nodes text-pink-accent mr-2"></i> จัดการช่องทางการติดต่อ (connect_with_us)
-                        </h3>
-                        
-                        <!-- Add Social Link Form -->
-                        <div class="p-2.5 bg-pink-50 rounded-lg border border-pink-200 space-y-2">
-                            <span class="text-xs font-bold text-pink-dark block"><i class="fa-solid fa-plus-circle mr-1"></i> เพิ่มช่องทางติดต่อใหม่</span>
-                            <div class="grid grid-cols-2 gap-2">
-                                <div>
-                                    <label class="block text-[10px] text-gray-600 font-bold">เลือกไอคอน</label>
-                                    <select id="newSocialIcon" class="w-full text-xs p-1.5 border border-pink-200 rounded bg-white">
-                                        <option value="fa-brands fa-instagram">Instagram</option>
-                                        <option value="fa-brands fa-tiktok">TikTok</option>
-                                        <option value="fa-brands fa-line">Line</option>
-                                        <option value="fa-brands fa-facebook">Facebook</option>
-                                        <option value="fa-brands fa-x-twitter">X (Twitter)</option>
-                                        <option value="fa-brands fa-youtube">YouTube</option>
-                                        <option value="fa-solid fa-phone">โทรศัพท์</option>
-                                        <option value="fa-solid fa-envelope">อีเมล</option>
-                                    </select>
-                                </div>
-                                <div>
-                                    <label class="block text-[10px] text-gray-600 font-bold">ข้อความที่แสดง</label>
-                                    <input type="text" id="newSocialTitle" placeholder="เช่น Insta: @mioristore" class="w-full text-xs p-1.5 border border-pink-200 rounded">
-                                </div>
-                            </div>
-                            <button onclick="addSocialLink()" class="w-full py-1.5 bg-pink-accent text-white rounded text-xs font-bold hover:bg-pink-dark transition">
-                                <i class="fa-solid fa-plus mr-1"></i> เพิ่มช่องทางติดต่อ
-                            </button>
-                        </div>
-
-                        <!-- Current Social Links List for Admin -->
-                        <div class="space-y-1.5 max-h-36 overflow-y-auto pr-1">
-                            <span class="text-[11px] font-bold text-gray-500 block">รายการช่องทางที่มีอยู่ปัจจุบัน:</span>
-                            <div id="adminSocialList" class="space-y-1">
-                                <!-- Dynamic Render Admin Social List -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Manage Reviews summary -->
-                <div class="mt-4 bg-white p-4 rounded-xl border border-amber-200 shadow-sm flex flex-col md:flex-row items-center justify-between gap-3">
-                    <div>
-                        <h3 class="font-bold text-sm text-gray-700 flex items-center">
-                            <i class="fa-solid fa-list-check text-pink-accent mr-2"></i> สรุปการจัดการรีวิว
-                        </h3>
-                        <p class="text-xs text-gray-500">
-                            จัดการซ่อนหรือลบรีวิวลูกค้าได้ในหน้ารีวิวทั้งหมดเมื่อเปิดโหมดแอดมิน
-                        </p>
-                    </div>
-                    <div class="p-2.5 bg-pink-50 rounded-lg border border-pink-100 text-center min-w-[200px]">
-                        <span class="text-xs text-pink-dark font-medium">สถิติรีวิวทั้งหมด: </span>
-                        <span id="adminReviewStats" class="text-xs font-bold text-pink-accent">0 รายการ</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- SECTION 3: MAIN BODY CONTENT (GRID LAYOUT 2 COLUMNS ตามภาพแบบร่าง) -->
-            <div id="mainGridContainer" class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-
-                <!-- MAIN CONTENT AREA (ฝั่งซ้าย 2 คอลัมน์ ในแบบร่างคือ WELCOME BOX & REVIEW BOX) -->
-                <div id="mainContentArea" class="lg:col-span-2 space-y-6">
-
-                    <!-- HOME TAB CONTENT -->
-                    <div id="tab-home" class="space-y-6">
-                        <!-- Welcome / About Box (กล่อง welcome ขนาดใหญ่ในภาพอ้างอิง) -->
-                        <div class="lace-card p-5 bg-white">
-                            <div class="flex items-center justify-between border-b-2 border-dashed border-pink-200 pb-2 mb-4">
-                                <h2 class="text-xl font-bold font-mali text-pink-dark flex items-center">
-                                    <i class="fa-solid fa-heart text-pink-accent mr-2"></i> welcome ♡
-                                </h2>
-                                <span class="text-xs text-pink-300 font-mali">✧ ✦ ✧ ✦</span>
-                            </div>
-
-                            <div class="text-sm text-gray-600 leading-relaxed space-y-3 font-kanit">
-                                <p>
-                                    ยินดีต้อนรับเข้าสู่ miori store สเปซเล็กๆ สุดอบอุ่นสำหรับคนที่รักของน่ารัก พาสเทล และสินค้าสไตล์คาวาอี้! ร้านของเราตั้งใจคัดสรรสินค้าคุณภาพ พร้อมส่งตรงถึงมือคุณอย่างใส่ใจทุกชิ้น
-                                </p>
-                                <p class="bg-pink-50 p-3 rounded-xl border border-pink-200 text-pink-dark text-xs font-mali">
-                                    🎀 <b>รอบจัดส่ง:</b> ส่งของทุกวันจันทร์ - ศุกร์ | ตัดรอบ 12.00 น.<br>
-                                    💌 <b>สอบถามเพิ่มเติม:</b> ทักแชทสอบถามน้องแอดมินได้ตลอด 24 ชม. เลยน้า
-                                </p>
-                                <p>
-                                    คุณสามารถคลิกเลือกชมรายการสินค้า เปิดดูรีวิวจากเพื่อนๆ หรือเขียนรีวิวความประทับใจเมื่อได้รับสินค้าแล้วได้ทันทีที่ปุ่มด้านล่างนี้ได้เลยค่ะ!
-                                </p>
-                            </div>
-
-                            <!-- Interactive Action Buttons (แสดงเฉพาะลูกค้าเมื่อไม่ได้อยู่ในโหมดแอดมิน) -->
-                            <div id="customerActionButtons" class="mt-6 flex flex-wrap gap-3">
-                                <button onclick="switchTab('reviews')" class="btn-cute px-5 py-2 rounded-xl text-sm font-bold flex items-center">
-                                    <i class="fa-solid fa-pen-nib mr-2"></i> เขียนรีวิวให้ร้านค้า
-                                </button>
-                            </div>
-                        </div>
-
-                        <!-- Featured Review Preview (พรีวิวรีวิวล่าสุด) -->
-                        <div class="lace-card p-5 bg-white">
-                            <div class="flex items-center justify-between border-b-2 border-dashed border-pink-200 pb-2 mb-4">
-                                <h3 class="text-base font-bold font-mali text-pink-dark flex items-center">
-                                    <i class="fa-solid fa-comment-dots text-pink-accent mr-2"></i> รีวิวล่าสุดจากลูกค้า (Recent Approved Reviews)
-                                </h3>
-                                <button onclick="switchTab('reviews')" class="text-xs text-pink-accent hover:underline font-bold">ดูทั้งหมด →</button>
-                            </div>
-                            <div id="homeReviewsPreview" class="space-y-3">
-                                <!-- Dynamic Inserted Recent Reviews -->
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- REVIEWS TAB CONTENT (ฟังก์ชันสำคัญ: แสดงและส่งรีวิว) -->
-                    <div id="tab-reviews" class="hidden space-y-6">
-                        <!-- Submit Review Box (ซ่อนในโหมดแอดมิน) -->
-                        <div id="customerSubmitReviewBox" class="lace-card p-5 bg-pink-50/60 border-pink-300">
-                            <h2 class="text-lg font-bold font-mali text-pink-dark mb-2 flex items-center">
-                                <i class="fa-solid fa-heart-circle-plus text-pink-accent mr-2"></i> เขียนรีวิวให้ร้าน miori store
-                            </h2>
-                            <p class="text-xs text-gray-500 mb-4">ร่วมแชร์ความรู้สึก คะแนนดาว และข้อความติชม เพื่อให้เรานำไปปรับปรุงนะคะ ♡</p>
-                            
-                            <form id="reviewForm" onsubmit="submitReview(event)" class="space-y-3 bg-white p-4 rounded-xl border border-pink-200">
-                                <div>
-                                    <label class="block text-xs font-bold text-gray-700 mb-1">ชื่อของคุณ / ชื่อเล่น *</label>
-                                    <input type="text" id="revAuthor" required placeholder="เช่น น้องแป้ง, Customer #01" class="w-full text-xs p-2.5 border border-pink-200 rounded-lg focus:outline-pink-accent">
-                                </div>
-                                <div>
-                                    <label class="block text-xs font-bold text-gray-700 mb-1">ให้คะแนนร้านค้า *</label>
-                                    <select id="revRating" class="w-full text-xs p-2.5 border border-pink-200 rounded-lg focus:outline-pink-accent bg-white">
-                                        <option value="5">⭐⭐⭐⭐⭐ (5/5 ประทับใจมากที่สุด!)</option>
-                                        <option value="4">⭐⭐⭐⭐ (4/5 ดีมากค่ะ)</option>
-                                        <option value="3">⭐⭐⭐ (3/5 ปานกลาง)</option>
-                                        <option value="2">⭐⭐ (2/5 ควรปรับปรุง)</option>
-                                        <option value="1">⭐ (1/5 ไม่ประทับใจ)</option>
-                                    </select>
-                                </div>
-                                <div>
-                                    <label class="block text-xs font-bold text-gray-700 mb-1">ข้อความรีวิว *</label>
-                                    <textarea id="revComment" required rows="3" placeholder="ของส่งไวมาก น่ารักเหมือนในรูปเลยค่ะ บริการดีสุดๆ..." class="w-full text-xs p-2.5 border border-pink-200 rounded-lg focus:outline-pink-accent"></textarea>
-                                </div>
-                                <button type="submit" class="w-full py-2.5 btn-cute rounded-xl text-xs font-bold shadow">
-                                    <i class="fa-solid fa-paper-plane mr-1"></i> ส่งรีวิวร้านค้า (Submit Review)
-                                </button>
-                            </form>
-                        </div>
-
-                        <!-- All Reviews List View -->
-                        <div class="lace-card p-5 bg-white">
-                            <div class="flex items-center justify-between mb-4 border-b-2 border-dashed border-pink-200 pb-2">
-                                <h3 class="text-base font-bold font-mali text-pink-dark">
-                                    <i class="fa-solid fa-comments text-pink-accent mr-2"></i> รีวิวทั้งหมดจากลูกค้า
-                                </h3>
-                                <span class="text-xs text-gray-400 font-mali">อัปเดตเรียลไทม์</span>
-                            </div>
-
-                            <div id="allReviewsContainer" class="space-y-4">
-                                <!-- Dynamic Reviews Rendered Here -->
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-
-                <!-- SIDEBAR AREA (แสดงเฉพาะในหน้าแรก) -->
-                <div id="sidebarArea" class="space-y-6">
-
-                    <!-- BOX 1: Social Links (seen_this_angel ? ในแบบร่าง) -->
-                    <div class="lace-card p-4 bg-white">
-                        <div class="border-b-2 border-dashed border-pink-200 pb-2 mb-3 text-center">
-                            <h3 class="font-mali font-bold text-pink-dark text-sm">
-                                🎀 connect_with_us 🎀
-                            </h3>
-                        </div>
-                        <div id="customerSocialList" class="space-y-2">
-                            <!-- Dynamic Render Customer Social Links -->
-                        </div>
-                    </div>
-
-                </div>
-
-            </div>
-
-            <!-- SECTION 4: FOOTER (ส่วนล่างสุดในแบบร่าง พร้อมริบบิ้น) -->
-            <div class="mt-8 pt-4 border-t-2 border-dashed border-pink-200 text-center space-y-2">
-                <div class="text-pink-accent text-lg">
-                    🎀 ✦ 🎀 ✦ 🎀
-                </div>
-                <p class="text-xs text-pink-dark font-mali">
-                    © 2026 miori store. All cute rights reserved. Built with love ♡
-                </p>
-                <p class="text-[10px] text-gray-400 font-mono">
-                    mioristore.demo.local • Kawaii Interface Framework
-                </p>
-            </div>
-
+        <!-- Top Ribbon Header Deco -->
+        <div class="bg-pink-100 text-center py-2 text-xs text-pink-500 tracking-widest font-semibold border-b border-pink-200">
+            🎀 ~ miori store official web ~ 🎀
         </div>
 
+        <!-- Admin Toggle Bar -->
+        <div class="bg-pink-50 px-4 py-2 flex justify-between items-center border-b border-pink-100 text-xs">
+            <span id="store-title-badge" class="font-bold text-pink-600">✨ miori store</span>
+            <button onclick="toggleAdminMode()" id="admin-toggle-btn" class="bg-pink-400 hover:bg-pink-500 text-white px-3 py-1 rounded-full shadow-sm transition">
+                ⚙️ เข้าสู่ระบบแอดมิน
+            </button>
+        </div>
+
+        <!-- HEADER SECTION (Y2K Inspired Style matching reference) -->
+        <header class="p-4 bg-gradient-to-b from-pink-50 to-white relative overflow-hidden border-b border-pink-100">
+            <div class="flex items-center gap-4">
+                <!-- Heart Lace Mascot Frame -->
+                <div class="heart-lace-frame w-28 h-28 flex-shrink-0 overflow-hidden flex items-center justify-center bg-pink-100">
+                    <img id="header-logo-img" src="https://i.imgur.com/84f17e.jpg" alt="Logo Mascot" class="w-full h-full object-cover rounded-full">
+                </div>
+                <!-- Header Text Card -->
+                <div class="scalloped-box p-3 flex-grow text-xs space-y-1 shadow-inner">
+                    <div class="flex items-center gap-1 font-bold text-pink-600 text-sm">
+                        <span id="display-store-name">miori store</span> 🤎
+                    </div>
+                    <p id="display-store-desc" class="text-gray-600 leading-relaxed">
+                        I'm miori ✨ 20 year old artist and web creator. Welcome to my cozy little art site!
+                    </p>
+                    <div class="pt-1 flex gap-2 text-[10px] text-pink-400 font-semibold">
+                        <span>♡ comms status: open</span>
+                        <span>♡ best viewed on mobile</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- NAVIGATION BAR -->
+        <nav class="bg-pink-100/80 py-2 px-4 flex justify-center gap-6 text-sm font-semibold text-pink-700 border-b border-pink-200">
+            <button onclick="switchTab('home')" id="nav-home" class="hover:text-pink-900 transition border-b-2 border-pink-600 pb-0.5">
+                🏠 หน้าแรก
+            </button>
+            <button onclick="switchTab('reviews')" id="nav-reviews" class="hover:text-pink-900 transition pb-0.5">
+                💬 รีวิวร้านค้า (<span id="review-count-badge">0</span>)
+            </button>
+        </nav>
+
+        <!-- MAIN CONTENT AREA -->
+        <main class="p-4 space-y-4">
+
+            <!-- HOME TAB -->
+            <div id="tab-home" class="space-y-4">
+                <!-- Welcome Box -->
+                <div class="scalloped-box p-4 shadow-sm">
+                    <h2 class="text-center font-bold text-pink-600 text-lg mb-2">~ welcome ♡ ~</h2>
+                    <p class="text-xs text-gray-600 leading-relaxed text-center">
+                        welcome to miori store! ขอบคุณที่แวะมาเยี่ยมชมเว็บไซต์นะคะ ขอให้มีความสุขกับสินค้าและบริการของเราน้า 💕
+                    </p>
+                </div>
+
+                <!-- Connect With Us (Show only on Home) -->
+                <div id="connect-section" class="scalloped-box p-4 space-y-3">
+                    <h3 class="text-xs font-bold text-pink-600 border-b border-pink-200 pb-1 text-center">~ connect_with_us ♡ ~</h3>
+                    <div id="social-links-container" class="space-y-2">
+                        <!-- Rendered by JS -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- REVIEWS TAB -->
+            <div id="tab-reviews" class="space-y-4 hidden">
+                <!-- Review Form (Hidden in Admin Mode) -->
+                <div id="review-form-card" class="scalloped-box p-4 space-y-3">
+                    <h3 class="text-xs font-bold text-pink-600 text-center">✍️ เขียนรีวิวความประทับใจ</h3>
+                    <form id="review-form" onsubmit="handleReviewSubmit(event)" class="space-y-2 text-xs">
+                        <div>
+                            <label class="block text-gray-600 mb-1">ชื่อของคุณ:</label>
+                            <input type="text" id="rev-name" required class="w-full px-3 py-1.5 rounded-lg border border-pink-300 focus:outline-none focus:ring-1 focus:ring-pink-400 bg-white">
+                        </div>
+                        <div>
+                            <label class="block text-gray-600 mb-1">ให้คะแนนความประทับใจ:</label>
+                            <select id="rev-rating" class="w-full px-3 py-1.5 rounded-lg border border-pink-300 focus:outline-none focus:ring-1 focus:ring-pink-400 bg-white">
+                                <option value="5">⭐⭐⭐⭐⭐ (ยอดเยี่ยมมาก)</option>
+                                <option value="4">⭐⭐⭐⭐ (ดีมาก)</option>
+                                <option value="3">⭐⭐⭐ (ปานกลาง)</option>
+                                <option value="2">⭐⭐ (ควรปรับปรุง)</option>
+                                <option value="1">⭐ (แย่)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-gray-600 mb-1">ข้อความรีวิว:</label>
+                            <textarea id="rev-comment" rows="2" required class="w-full px-3 py-1.5 rounded-lg border border-pink-300 focus:outline-none focus:ring-1 focus:ring-pink-400 bg-white"></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-pink-400 hover:bg-pink-500 text-white font-bold py-2 rounded-lg shadow transition">
+                            ส่งรีวิว 💌
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Reviews List Container -->
+                <div class="space-y-3">
+                    <h3 class="text-xs font-bold text-pink-600 text-center">🎀 รีวิวจากลูกค้าที่น่ารัก 🎀</h3>
+                    <div id="reviews-list" class="space-y-2">
+                        <!-- Rendered by JS -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- ADMIN PANEL (Hidden by default) -->
+            <div id="admin-panel" class="hidden space-y-4 bg-pink-50/90 p-4 rounded-2xl border-2 border-pink-300">
+                <div class="bg-pink-200 text-pink-800 font-bold text-xs p-2 rounded-lg text-center">
+                    🛠️ แผงควบคุมผู้ดูแลระบบ (Admin Dashboard)
+                </div>
+
+                <!-- Edit Store Info -->
+                <div class="scalloped-box p-3 space-y-2 text-xs bg-white">
+                    <h4 class="font-bold text-pink-600 border-b pb-1">✏️ แก้ไขข้อมูลร้านค้า</h4>
+                    <div>
+                        <label class="block text-gray-600">ชื่อร้าน:</label>
+                        <input type="text" id="admin-store-name" class="w-full px-2 py-1 rounded border border-pink-300 mt-1">
+                    </div>
+                    <div>
+                        <label class="block text-gray-600">รายละเอียดร้าน:</label>
+                        <textarea id="admin-store-desc" rows="2" class="w-full px-2 py-1 rounded border border-pink-300 mt-1"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-gray-600">URL รูปโลโก้/มาสคอต (หัวใจลูกไม้):</label>
+                        <input type="text" id="admin-store-logo" class="w-full px-2 py-1 rounded border border-pink-300 mt-1">
+                    </div>
+                    <button onclick="saveStoreInfo()" class="w-full bg-pink-500 hover:bg-pink-600 text-white py-1.5 rounded font-bold shadow">
+                        บันทึกข้อมูลร้าน 💾
+                    </button>
+                </div>
+
+                <!-- Manage Social Links -->
+                <div class="scalloped-box p-3 space-y-2 text-xs bg-white">
+                    <h4 class="font-bold text-pink-600 border-b pb-1">🔗 จัดการช่องทางการติดต่อ (connect_with_us)</h4>
+                    <div class="space-y-2">
+                        <input type="text" id="new-social-icon" placeholder="ไอคอน/อีโมจิ (เช่น 📸, 💬)" class="w-full px-2 py-1 rounded border border-pink-300">
+                        <input type="text" id="new-social-name" placeholder="ชื่อแพลตฟอร์ม & Username (เช่น Instagram: @miori)" class="w-full px-2 py-1 rounded border border-pink-300">
+                        <input type="text" id="new-social-url" placeholder="ลิงก์ URL (https://...)" class="w-full px-2 py-1 rounded border border-pink-300">
+                        <button onclick="addSocialLink()" class="w-full bg-pink-400 hover:bg-pink-500 text-white py-1 rounded font-bold">
+                            + เพิ่มช่องทางติดต่อ
+                        </button>
+                    </div>
+                    <div id="admin-social-list" class="space-y-1 pt-2">
+                        <!-- Rendered by JS -->
+                    </div>
+                </div>
+
+                <!-- Manage Reviews -->
+                <div class="scalloped-box p-3 space-y-2 text-xs bg-white">
+                    <h4 class="font-bold text-pink-600 border-b pb-1">💬 จัดการรีวิวทั้งหมด</h4>
+                    <div id="admin-reviews-list" class="space-y-2">
+                        <!-- Rendered by JS -->
+                    </div>
+                </div>
+            </div>
+
+        </main>
+
+        <!-- Footer -->
+        <footer class="text-center py-3 text-[10px] text-pink-400 bg-pink-50 border-t border-pink-200">
+            miori store © 2026 ♡ All rights reserved.
+        </footer>
     </div>
 
-    <!-- Toast Notification Widget -->
-    <div id="toast" class="fixed bottom-5 right-5 bg-pink-dark text-white text-xs font-mali px-4 py-3 rounded-2xl shadow-xl transition opacity-0 transform translate-y-5 pointer-events-none flex items-center z-50">
-        <i class="fa-solid fa-heart mr-2 text-pink-200"></i>
-        <span id="toastMsg">ข้อความแจ้งเตือน</span>
+    <!-- Notification Toast -->
+    <div id="toast" class="fixed bottom-4 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-xs px-4 py-2 rounded-full shadow-lg opacity-0 transition-opacity duration-300 pointer-events-none z-50">
+        แจ้งเตือนระบบ
     </div>
 
-    <!-- JavaScript Application Logic -->
     <script>
-        // State Management (Data Store Demo)
-        const state = {
-            isAdmin: false,
-            storeName: "miori store ✨",
-            storeDesc: "ยินดีต้อนรับสู่ miori store! ร้านรวมสินค้าสุดคาวาอี้และพื้นที่แบ่งปันรีวิวความประทับใจจากลูกค้าตัวน้อย เลือกชม สั่งซื้อ หรือร่วมรีวิวให้คะแนนร้านเราได้เลยน้า 💕",
-            logoUrl: "https://placehold.co/180x180/ffc6d9/ffffff?text=Miori+Mascot",
-            socialLinks: [
-                { id: 1, icon: "fa-brands fa-instagram", title: "Insta: @mioristore" },
-                { id: 2, icon: "fa-brands fa-tiktok", title: "Tiktok: @miori_official" },
-                { id: 3, icon: "fa-brands fa-line", title: "Line: @mioricute" },
-                { id: 4, icon: "fa-brands fa-facebook", title: "FB: Miori Store TH" }
-            ],
-            reviews: [
-                {
-                    id: 1,
-                    author: "น้องแพรว (PangPang)",
-                    rating: 5,
-                    comment: "ได้รับของเรียบร้อยค่ะ แพ็คของมาดีมากๆ มีสติ๊กเกอร์แถมมาให้ด้วย ประทับใจร้านนี้สุดๆ เลย 💕",
-                    date: "2026-11-06",
-                    status: "approved"
-                },
-                {
-                    id: 2,
-                    author: "คุณมิ้นท์",
-                    rating: 5,
-                    comment: "สินค้าของแท้ 100% ขนนุ่มน่ารักมาก ไว้จะมาอุดหนุนใหม่นะคะ!",
-                    date: "2026-11-05",
-                    status: "approved"
-                },
-                {
-                    id: 3,
-                    author: "User_9921",
-                    rating: 4,
-                    comment: "ส่งไวดีครับ สินค้าตรงปกตามที่ลงไว้",
-                    date: "2026-11-04",
-                    status: "approved"
-                }
-            ]
+        // Initial App Data State
+        let storeData = {
+            name: "miori store",
+            desc: "I'm miori ✨ 20 year old artist and web creator. Welcome to my cozy little art site!",
+            logo: "https://i.imgur.com/84f17e.jpg"
         };
 
-        // Initialize Web App
-        window.onload = function() {
-            renderStoreDetails();
+        let socialLinks = [
+            { icon: "💬", name: "discord: @mioristore", url: "#" },
+            { icon: "📸", name: "insta: @mioristore", url: "#" },
+            { icon: "🎵", name: "tiktok: @miori.art", url: "#" },
+            { icon: "💌", name: "line: @miorishop", url: "#" }
+        ];
+
+        let reviews = [
+            { id: 1, name: "คุณลูกค้าน่ารัก", rating: 5, comment: "ร้านค้าน่ารักมากค่ะ งานดีส่งไวทันใจมากๆ สไตล์เว็บสวยละมุนสุดๆ 💕", status: "approved" },
+            { id: 2, name: "น้องเฟิร์น", rating: 5, comment: "บริการดีเยี่ยม ขนมและสินค้าตรงปกมาก ไว้มาอุดหนุนอีกแน่นอนค่ะ ✨", status: "approved" }
+        ];
+
+        let currentTab = 'home';
+        let isAdminMode = false;
+
+        // Initialize App Render
+        function initApp() {
+            document.getElementById('display-store-name').innerText = storeData.name;
+            document.getElementById('store-title-badge').innerText = "✨ " + storeData.name;
+            document.getElementById('display-store-desc').innerText = storeData.desc;
+            document.getElementById('header-logo-img').src = storeData.logo;
+
+            // Fill Admin Inputs
+            document.getElementById('admin-store-name').value = storeData.name;
+            document.getElementById('admin-store-desc').value = storeData.desc;
+            document.getElementById('admin-store-logo').value = storeData.logo;
+
             renderSocialLinks();
             renderReviews();
             updateReviewCountBadge();
-        };
+        }
 
-        // Render Social Links (connect_with_us) for Customer & Admin list
-        function renderSocialLinks() {
-            const customerContainer = document.getElementById('customerSocialList');
-            const adminContainer = document.getElementById('adminSocialList');
+        // Switch Tabs
+        function switchTab(tab) {
+            currentTab = tab;
+            const homeTab = document.getElementById('tab-home');
+            const reviewsTab = document.getElementById('tab-reviews');
+            const navHome = document.getElementById('nav-home');
+            const navReviews = document.getElementById('nav-reviews');
 
-            if (customerContainer) {
-                customerContainer.innerHTML = '';
-                if (state.socialLinks.length === 0) {
-                    customerContainer.innerHTML = `<p class="text-xs text-gray-400 text-center py-2">ยังไม่มีช่องทางติดต่อ</p>`;
-                } else {
-                    state.socialLinks.forEach(item => {
-                        customerContainer.innerHTML += `
-                            <a href="#" onclick="event.preventDefault(); showToast('${escapeHtml(item.title)}')" class="flex items-center p-2 rounded-xl bg-pink-50 hover:bg-pink-100 transition border border-pink-200 text-xs font-mali text-pink-dark">
-                                <i class="${escapeHtml(item.icon)} text-base mr-2 text-pink-accent"></i>
-                                <span>${escapeHtml(item.title)}</span>
-                            </a>
-                        `;
-                    });
-                }
-            }
-
-            if (adminContainer) {
-                adminContainer.innerHTML = '';
-                state.socialLinks.forEach(item => {
-                    adminContainer.innerHTML += `
-                        <div class="flex items-center justify-between p-1.5 bg-gray-50 rounded border border-gray-200 text-xs">
-                            <div class="flex items-center gap-2 truncate">
-                                <i class="${escapeHtml(item.icon)} text-pink-accent"></i>
-                                <span class="truncate font-mali">${escapeHtml(item.title)}</span>
-                            </div>
-                            <button onclick="deleteSocialLink(${item.id})" class="text-rose-500 hover:text-rose-700 px-1.5 py-0.5 text-xs">
-                                <i class="fa-solid fa-trash"></i>
-                            </button>
-                        </div>
-                    `;
-                });
+            if (tab === 'home') {
+                homeTab.classList.remove('hidden');
+                reviewsTab.classList.add('hidden');
+                navHome.classList.add('border-b-2', 'border-pink-600');
+                navReviews.classList.remove('border-b-2', 'border-pink-600');
+            } else {
+                homeTab.classList.add('hidden');
+                reviewsTab.classList.remove('hidden');
+                navReviews.classList.add('border-b-2', 'border-pink-600');
+                navHome.classList.remove('border-b-2', 'border-pink-600');
             }
         }
 
-        // Admin Action: Add New Social Link
-        function addSocialLink() {
-            const icon = document.getElementById('newSocialIcon').value;
-            const title = document.getElementById('newSocialTitle').value.trim();
+        // Toggle Admin Mode
+        function toggleAdminMode() {
+            isAdminMode = !isAdminMode;
+            const adminPanel = document.getElementById('admin-panel');
+            const tabHome = document.getElementById('tab-home');
+            const tabReviews = document.getElementById('tab-reviews');
+            const reviewFormCard = document.getElementById('review-form-card');
+            const connectSection = document.getElementById('connect-section');
+            const toggleBtn = document.getElementById('admin-toggle-btn');
+            const navBar = document.querySelector('nav');
 
-            if (!title) {
-                showToast("กรุณากรอกข้อความที่ต้องการแสดง");
+            if (isAdminMode) {
+                adminPanel.classList.remove('hidden');
+                tabHome.classList.add('hidden');
+                tabReviews.classList.add('hidden');
+                reviewFormCard.classList.add('hidden');
+                connectSection.classList.add('hidden');
+                navBar.classList.add('hidden');
+                toggleBtn.innerText = "✖️ ออกจากแอดมิน";
+                toggleBtn.className = "bg-gray-500 hover:bg-gray-600 text-white px-3 py-1 rounded-full shadow-sm transition";
+                showToast("เข้าสู่โหมดผู้ดูแลระบบเรียบร้อยแล้วค่ะ ⚙️");
+            } else {
+                adminPanel.classList.add('hidden');
+                navBar.classList.remove('hidden');
+                toggleBtn.innerText = "⚙️ เข้าสู่ระบบแอดมิน";
+                toggleBtn.className = "bg-pink-400 hover:bg-pink-500 text-white px-3 py-1 rounded-full shadow-sm transition";
+                switchTab('home');
+                showToast("ออกจากโหมดผู้ดูแลระบบแล้วค่ะ ✨");
+            }
+            renderReviews();
+            renderAdminSocialList();
+        }
+
+        // Render Social Links
+        function renderSocialLinks() {
+            const container = document.getElementById('social-links-container');
+            if (socialLinks.length === 0) {
+                container.innerHTML = '<p class="text-center text-gray-400 text-xs py-2">ยังไม่มีช่องทางติดต่อ</p>';
+                return;
+            }
+            container.innerHTML = socialLinks.map(s => `
+                <a href="${s.url}" target="_blank" class="flex items-center gap-2 p-1.5 rounded-lg bg-pink-50/60 hover:bg-pink-100 transition border border-pink-100 text-xs">
+                    <span class="text-sm">${s.icon}</span>
+                    <span class="text-gray-700 font-medium truncate">${s.name}</span>
+                </a>
+            `).join('');
+        }
+
+        // Render Admin Social List
+        function renderAdminSocialList() {
+            const container = document.getElementById('admin-social-list');
+            container.innerHTML = socialLinks.map((s, index) => `
+                <div class="flex items-center justify-between bg-pink-50 p-2 rounded border border-pink-200 text-xs">
+                    <span class="truncate"><span>${s.icon}</span> ${s.name}</span>
+                    <button onclick="deleteSocialLink(${index})" class="bg-red-400 text-white px-2 py-0.5 rounded text-[10px]">ลบ</button>
+                </div>
+            `).join('');
+        }
+
+        function addSocialLink() {
+            const icon = document.getElementById('new-social-icon').value.trim();
+            const name = document.getElementById('new-social-name').value.trim();
+            const url = document.getElementById('new-social-url').value.trim();
+
+            if (!name) {
+                showToast("กรุณากรอกชื่อแพลตฟอร์มด้วยนะคะ ⚠️");
                 return;
             }
 
-            const newSocial = {
-                id: Date.now(),
-                icon: icon,
-                title: title
-            };
-
-            state.socialLinks.push(newSocial);
-            document.getElementById('newSocialTitle').value = '';
-
+            socialLinks.push({ icon: icon || "🔗", name, url: url || "#" });
+            document.getElementById('new-social-icon').value = '';
+            document.getElementById('new-social-name').value = '';
+            document.getElementById('new-social-url').value = '';
             renderSocialLinks();
-            showToast("เพิ่มช่องทางติดต่อเรียบร้อยแล้วค่ะ ✨");
+            renderAdminSocialList();
+            showToast("เพิ่มช่องทางติดต่อสำเร็จ! 💕");
         }
 
-        // Admin Action: Delete Social Link
-        function deleteSocialLink(id) {
-            state.socialLinks = state.socialLinks.filter(item => item.id !== id);
+        function deleteSocialLink(index) {
+            socialLinks.splice(index, 1);
             renderSocialLinks();
+            renderAdminSocialList();
             showToast("ลบช่องทางติดต่อแล้ว");
         }
 
-        // Tab Switcher (Show/Hide Sidebar connect_with_us dynamically)
-        function switchTab(tabName) {
-            const tabs = ['home', 'reviews'];
-            tabs.forEach(t => {
-                const el = document.getElementById(`tab-${t}`);
-                if (el) el.classList.add('hidden');
-                const navBtn = document.getElementById(`nav-${t}`);
-                if (navBtn) {
-                    navBtn.className = "px-4 py-1.5 rounded-xl font-bold btn-secondary transition";
-                }
-            });
+        // Save Store Info from Admin
+        function saveStoreInfo() {
+            storeData.name = document.getElementById('admin-store-name').value;
+            storeData.desc = document.getElementById('admin-store-desc').value;
+            storeData.logo = document.getElementById('admin-store-logo').value;
 
-            const activeTab = document.getElementById(`tab-${tabName}`);
-            if (activeTab) activeTab.classList.remove('hidden');
-            const activeBtn = document.getElementById(`nav-${tabName}`);
-            if (activeBtn) {
-                activeBtn.className = "px-4 py-1.5 rounded-xl font-bold btn-cute transition";
-            }
+            document.getElementById('display-store-name').innerText = storeData.name;
+            document.getElementById('store-title-badge').innerText = "✨ " + storeData.name;
+            document.getElementById('display-store-desc').innerText = storeData.desc;
+            document.getElementById('header-logo-img').src = storeData.logo;
 
-            // Manage Sidebar and Grid Layout for Home vs Reviews tab
-            const sidebar = document.getElementById('sidebarArea');
-            const mainContentArea = document.getElementById('mainContentArea');
-            const mainGrid = document.getElementById('mainGridContainer');
-
-            if (tabName === 'home') {
-                sidebar.classList.remove('hidden');
-                mainContentArea.classList.add('lg:col-span-2');
-                mainGrid.classList.add('lg:grid-cols-3');
-            } else {
-                sidebar.classList.add('hidden');
-                mainContentArea.classList.remove('lg:col-span-2');
-                mainGrid.classList.remove('lg:grid-cols-3');
-            }
+            showToast("บันทึกข้อมูลร้านค้าเรียบร้อยแล้วค่ะ ✨");
         }
 
-        // Toggle Admin Panel Mode
-        function toggleAdminPanel() {
-            state.isAdmin = !state.isAdmin;
-            const panel = document.getElementById('adminPanel');
-            const toggleBtn = document.getElementById('adminToggleBtn');
-            const submitReviewBox = document.getElementById('customerSubmitReviewBox');
-            const customerActionButtons = document.getElementById('customerActionButtons');
-            
-            if (state.isAdmin) {
-                panel.classList.remove('hidden');
-                if (submitReviewBox) submitReviewBox.classList.add('hidden');
-                if (customerActionButtons) customerActionButtons.classList.add('hidden');
-                
-                toggleBtn.classList.remove('bg-white', 'text-pink-dark');
-                toggleBtn.classList.add('bg-amber-400', 'text-amber-950');
-                toggleBtn.innerHTML = `<i class="fa-solid fa-check mr-1"></i> อยู่ในโหมดแอดมิน (คลิกเพื่อปิด)`;
-                
-                // Populate Form Inputs & Lists
-                document.getElementById('inputStoreName').value = state.storeName;
-                document.getElementById('inputStoreDesc').value = state.storeDesc;
-                document.getElementById('inputStoreLogo').value = state.logoUrl;
-                renderSocialLinks();
-                
-                showToast("เปิดแผงควบคุมหลังบ้านเรียบร้อย");
-            } else {
-                panel.classList.add('hidden');
-                if (submitReviewBox) submitReviewBox.classList.remove('hidden');
-                if (customerActionButtons) customerActionButtons.classList.remove('hidden');
-                
-                toggleBtn.classList.remove('bg-amber-400', 'text-amber-950');
-                toggleBtn.classList.add('bg-white', 'text-pink-dark');
-                toggleBtn.innerHTML = `<i class="fa-solid fa-user-gear mr-1"></i> เข้าสู่ระบบแอดมิน (Admin Mode)`;
-                showToast("ออกจากโหมดแอดมินแล้ว");
-            }
-            renderReviews(); // Re-render to show admin controls
-        }
+        // Handle Customer Review Submit
+        function handleReviewSubmit(e) {
+            e.preventDefault();
+            const name = document.getElementById('rev-name').value;
+            const rating = parseInt(document.getElementById('rev-rating').value);
+            const comment = document.getElementById('rev-comment').value;
 
-        // Save Store Info (Admin Function)
-        function saveStoreSettings() {
-            const name = document.getElementById('inputStoreName').value;
-            const desc = document.getElementById('inputStoreDesc').value;
-            const logo = document.getElementById('inputStoreLogo').value;
-
-            if (name) state.storeName = name;
-            if (desc) state.storeDesc = desc;
-            if (logo) state.logoUrl = logo;
-
-            renderStoreDetails();
-            showToast("บันทึกข้อมูลร้านค้าเรียบร้อยแล้วค่ะ! ✨");
-        }
-
-        function renderStoreDetails() {
-            document.getElementById('displayStoreName').innerText = state.storeName;
-            document.getElementById('displayStoreDesc').innerText = state.storeDesc;
-            document.getElementById('displayLogo').src = state.logoUrl;
-        }
-
-        // Customer Action: Submit Review
-        function submitReview(event) {
-            event.preventDefault();
-            const author = document.getElementById('revAuthor').value.trim();
-            const rating = parseInt(document.getElementById('revRating').value);
-            const comment = document.getElementById('revComment').value.trim();
-
-            if (!author || !comment) return;
-
-            const newReview = {
+            const newRev = {
                 id: Date.now(),
-                author: author,
-                rating: rating,
-                comment: comment,
-                date: new Date().toISOString().split('T')[0],
-                status: "pending" // New reviews require Admin Approval
+                name,
+                rating,
+                comment,
+                status: "approved" // ตั้งค่าอนุมัติอัตโนมัติสำหรับเดโม
             };
 
-            state.reviews.unshift(newReview);
-            document.getElementById('reviewForm').reset();
-
+            reviews.unshift(newRev);
+            document.getElementById('review-form').reset();
             renderReviews();
             updateReviewCountBadge();
-            
-            showToast("ส่งรีวิวเรียบร้อยแล้ว! (รอแอดมินอนุมัติก่อนขึ้นแสดง)");
+            showToast("ส่งรีวิวเรียบร้อย ขอบคุณมากๆ เลยนะคะ 💌");
+            switchTab('reviews');
         }
 
-        // Admin Action: Change Review Status (Approve / Hide / Delete)
-        function updateReviewStatus(id, newStatus) {
-            const review = state.reviews.find(r => r.id === id);
-            if (review) {
-                review.status = newStatus;
+        // Render Reviews List
+        function renderReviews() {
+            const listContainer = document.getElementById('reviews-list');
+            const adminListContainer = document.getElementById('admin-reviews-list');
+
+            // Public Reviews (Only approved)
+            const approvedReviews = reviews.filter(r => r.status === 'approved');
+            if (approvedReviews.length === 0) {
+                listContainer.innerHTML = '<p class="text-center text-gray-400 text-xs py-4">ยังไม่มีรีวิวในขณะนี้ เป็นคนแรกที่รีวิวเลยสิคะ! ✨</p>';
+            } else {
+                listContainer.innerHTML = approvedReviews.map(r => `
+                    <div class="scalloped-box p-3 space-y-1 bg-white">
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-pink-600 text-xs">♡ ${r.name}</span>
+                            <span class="text-amber-400 text-xs">${'⭐'.repeat(r.rating)}</span>
+                        </div>
+                        <p class="text-gray-600 text-xs leading-relaxed">${r.comment}</p>
+                    </div>
+                `).join('');
+            }
+
+            // Admin Reviews (All statuses, with Hide & Delete buttons)
+            if (reviews.length === 0) {
+                adminListContainer.innerHTML = '<p class="text-center text-gray-400 text-xs py-2">ไม่มีรีวิวในระบบ</p>';
+            } else {
+                adminListContainer.innerHTML = reviews.map(r => `
+                    <div class="p-2 bg-pink-50 rounded-lg border border-pink-200 space-y-1 text-xs">
+                        <div class="flex justify-between items-center font-bold text-gray-700">
+                            <span>${r.name} (${'⭐'.repeat(r.rating)})</span>
+                            <span class="text-[10px] px-1.5 py-0.5 rounded ${r.status === 'approved' ? 'bg-green-100 text-green-700' : 'bg-amber-100 text-amber-700'}">
+                                ${r.status === 'approved' ? 'แสดงอยู่' : 'ซ่อนอยู่'}
+                            </span>
+                        </div>
+                        <p class="text-gray-600 text-[11px] truncate">${r.comment}</p>
+                        <div class="flex gap-2 pt-1 justify-end">
+                            <button onclick="toggleHideReview(${r.id})" class="bg-amber-400 hover:bg-amber-500 text-white px-2 py-0.5 rounded text-[10px]">
+                                ${r.status === 'approved' ? 'ซ่อน' : 'แสดง'}
+                            </button>
+                            <button onclick="deleteReview(${r.id})" class="bg-red-400 hover:bg-red-500 text-white px-2 py-0.5 rounded text-[10px]">
+                                ลบ
+                            </button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        function toggleHideReview(id) {
+            const rev = reviews.find(r => r.id === id);
+            if (rev) {
+                rev.status = rev.status === 'approved' ? 'hidden' : 'approved';
                 renderReviews();
-                updateReviewCountBadge();
-                showToast(`อัปเดตสถานะรีวิวเรียบร้อย: ${newStatus}`);
+                showToast("เปลี่ยนสถานะรีวิวเรียบร้อย");
             }
         }
 
         function deleteReview(id) {
-            state.reviews = state.reviews.filter(r => r.id !== id);
+            reviews = reviews.filter(r => r.id !== id);
             renderReviews();
             updateReviewCountBadge();
-            showToast("ลบรีวิวเรียบร้อยแล้ว");
-        }
-
-        // Render Reviews List & Previews
-        function renderReviews() {
-            const container = document.getElementById('allReviewsContainer');
-            const previewContainer = document.getElementById('homeReviewsPreview');
-            const adminStats = document.getElementById('adminReviewStats');
-
-            container.innerHTML = '';
-            previewContainer.innerHTML = '';
-
-            const approvedReviews = state.reviews.filter(r => r.status === 'approved');
-            
-            // Render Reviews for Customers & Admin
-            state.reviews.forEach(r => {
-                // Customer view only shows 'approved' unless in admin mode
-                if (!state.isAdmin && r.status !== 'approved') return;
-
-                const stars = '⭐'.repeat(r.rating);
-                const isPending = r.status === 'pending';
-                const isHidden = r.status === 'hidden';
-
-                let statusBadge = '';
-                if (state.isAdmin) {
-                    if (r.status === 'approved') statusBadge = '<span class="text-[10px] bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full font-bold">อนุมัติแล้ว</span>';
-                    else if (r.status === 'pending') statusBadge = '<span class="text-[10px] bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full font-bold">รออนุมัติ</span>';
-                    else if (r.status === 'hidden') statusBadge = '<span class="text-[10px] bg-gray-200 text-gray-700 px-2 py-0.5 rounded-full font-bold">ถูกซ่อนอยู่</span>';
-                }
-
-                const cardHtml = `
-                    <div class="p-4 rounded-xl border-2 ${isPending ? 'border-amber-300 bg-amber-50/40' : isHidden ? 'border-gray-300 bg-gray-50' : 'border-pink-100 bg-pink-50/30'} space-y-2 relative transition hover:shadow-sm">
-                        <div class="flex items-center justify-between">
-                            <div class="flex items-center gap-2">
-                                <span class="font-bold text-xs text-pink-dark font-mali"><i class="fa-solid fa-user-heart mr-1"></i> ${escapeHtml(r.author)}</span>
-                                ${statusBadge}
-                            </div>
-                            <span class="text-[11px] text-gray-400 font-mono">${r.date}</span>
-                        </div>
-                        <div class="text-xs text-amber-400">${stars}</div>
-                        <p class="text-xs text-gray-700 leading-relaxed font-kanit">${escapeHtml(r.comment)}</p>
-
-                        <!-- Admin Control Buttons inside Review Card (Removed Green Approve Button) -->
-                        ${state.isAdmin ? `
-                            <div class="pt-2 border-t border-pink-200/60 flex items-center gap-2 justify-end text-xs font-mali">
-                                ${r.status !== 'hidden' ? `<button onclick="updateReviewStatus(${r.id}, 'hidden')" class="px-2 py-1 bg-amber-500 text-white rounded text-[11px] hover:bg-amber-600"><i class="fa-solid fa-eye-slash"></i> ซ่อน</button>` : ''}
-                                <button onclick="deleteReview(${r.id})" class="px-2 py-1 bg-rose-500 text-white rounded text-[11px] hover:bg-rose-600"><i class="fa-solid fa-trash"></i> ลบ</button>
-                            </div>
-                        ` : ''}
-                    </div>
-                `;
-
-                container.innerHTML += cardHtml;
-            });
-
-            if (container.innerHTML === '') {
-                container.innerHTML = `<p class="text-xs text-gray-400 text-center py-4">ยังไม่มีรีวิวที่อนุมัติในขณะนี้</p>`;
-            }
-
-            // Render top 2 approved reviews in home tab preview
-            approvedReviews.slice(0, 2).forEach(r => {
-                previewContainer.innerHTML += `
-                    <div class="p-3 bg-pink-50/50 rounded-xl border border-pink-100 text-xs space-y-1">
-                        <div class="flex justify-between font-bold text-pink-dark font-mali">
-                            <span>${escapeHtml(r.author)}</span>
-                            <span class="text-amber-400 font-normal">${'⭐'.repeat(r.rating)}</span>
-                        </div>
-                        <p class="text-gray-600 truncate">${escapeHtml(r.comment)}</p>
-                    </div>
-                `;
-            });
-
-            if (approvedReviews.length === 0) {
-                previewContainer.innerHTML = `<p class="text-xs text-gray-400 text-center py-2">ยังไม่มีรีวิวตัวอย่าง</p>`;
-            }
-
-            if (adminStats) {
-                adminStats.innerText = `${state.reviews.length} รายการ (อนุมัติ: ${approvedReviews.length})`;
-            }
+            showToast("ลบรีวิวเรียบร้อยแล้วค่ะ");
         }
 
         function updateReviewCountBadge() {
-            const approved = state.reviews.filter(r => r.status === 'approved').length;
-            document.getElementById('reviewCountBadge').innerText = approved;
+            const count = reviews.filter(r => r.status === 'approved').length;
+            document.getElementById('review-count-badge').innerText = count;
         }
 
-        // Helper: Utility Toast Notification
+        // Toast Notification Helper
         function showToast(message) {
             const toast = document.getElementById('toast');
-            document.getElementById('toastMsg').innerText = message;
-            toast.classList.remove('opacity-0', 'translate-y-5', 'pointer-events-none');
-            toast.classList.add('opacity-100', 'translate-y-0');
+            toast.innerText = message;
+            toast.style.opacity = '1';
             setTimeout(() => {
-                toast.classList.remove('opacity-100', 'translate-y-0');
-                toast.classList.add('opacity-0', 'translate-y-5', 'pointer-events-none');
-            }, 3000);
+                toast.style.opacity = '0';
+            }, 2500);
         }
 
-        // Helper: Escape HTML to prevent XSS in text inputs
-        function escapeHtml(text) {
-            return text
-                .replace(/&/g, "&amp;")
-                .replace(/</g, "&lt;")
-                .replace(/>/g, "&gt;")
-                .replace(/"/g, "&quot;")
-                .replace(/'/g, "&#039;");
-        }
+        // Run Init on Load
+        window.onload = initApp;
     </script>
 </body>
 </html>
