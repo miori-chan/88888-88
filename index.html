@@ -43,14 +43,14 @@
         }
         /* Lace Border Frame Simulation (ปรับขอบการ์ดข้อมูลให้เป็นเส้นประสุดคาวาอี้) */
         .lace-card {
-            background-color: #FFFFFF;
+            background-color: transparent;
             border: 2px dashed #FFB7C5;
-            box-shadow: 0 4px 15px rgba(255, 183, 197, 0.3), inset 0 0 0 4px #FFF5F7;
+            box-shadow: 0 4px 15px rgba(255, 183, 197, 0.2);
             border-radius: 20px;
             position: relative;
         }
         .lace-card-header {
-            background: linear-gradient(135deg, #FFF0F4, #FFE4EC);
+            background: transparent;
             border-bottom: 2px dashed #FFB7C5;
         }
         /* Y2K / Cute Button Styles */
@@ -98,23 +98,51 @@
             mask-size: 12px 12px;
             mask-repeat: repeat-x;
         }
+
+        /* Falling Hearts Animation */
+        .heart-particle {
+            position: fixed;
+            top: -20px;
+            color: #FF85A1;
+            pointer-events: none;
+            z-index: 0;
+            animation: fall linear forwards;
+            opacity: 0.7;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(0) rotate(0deg) scale(0.8);
+                opacity: 0.9;
+            }
+            50% {
+                transform: translateY(50vh) rotate(180deg) scale(1.1);
+            }
+            100% {
+                transform: translateY(105vh) rotate(360deg) scale(0.6);
+                opacity: 0;
+            }
+        }
     </style>
 </head>
-<body class="min-h-screen pb-12">
+<body class="min-h-screen pb-12 relative">
+    <!-- Heart Particle Container (ย้ายเลเยอร์ลงไปลอยในพื้นหลัง z-0) -->
+    <div id="heartContainer" class="pointer-events-none fixed inset-0 overflow-hidden z-0"></div>
+
     <!-- Top Ribbon Aesthetic Decorative Bar -->
-    <div class="w-full bg-pink-accent text-white text-xs py-1.5 text-center font-mali tracking-wide flex justify-between px-3 sm:px-6 items-center shadow-sm">
-        <span class="truncate"><i class="fa-solid fa-ribbon mr-1"></i> Welcome to Miori Store 💕</span>
+    <div class="w-full bg-pink-accent text-white text-xs py-1.5 text-center font-mali tracking-wide flex justify-between px-3 sm:px-6 items-center shadow-sm relative z-20">
+        <span class="truncate"><i class="fa-solid fa-heart mr-1"></i> Welcome to Miori Store 💕</span>
         <button id="adminToggleBtn" onclick="toggleAdminPanel()" class="bg-white text-pink-dark px-3 py-1 rounded-full text-xs font-semibold hover:bg-pink-100 transition shadow-sm flex-shrink-0">
             <i class="fa-solid fa-user-gear mr-1"></i> เข้าสู่ระบบแอดมิน (Admin Mode)
         </button>
     </div>
-    <!-- Main Mobile-Centric Container -->
-    <div class="max-w-md mx-auto px-2 sm:px-4 pt-3">
-        <!-- Outer Lace Frame Wrapper -->
-        <div class="lace-card p-3 sm:p-5 mb-6">
+    <!-- Main Mobile-Centric Container (กำหนด z-10 เพื่อให้อยู่ด้านบนของหัวใจโปรยเสมอ) -->
+    <div class="max-w-md mx-auto px-2 sm:px-4 pt-3 relative z-10">
+        <!-- Outer Transparent Container (ลบ background White/Backdrop ออก ข้อมูลย่อยคงอยู่ครบ) -->
+        <div class="p-1 sm:p-2 mb-6">
            
-            <!-- SECTION 1: HEADER & MASCOT BANNER (Logo Left, Details Right) -->
-            <div class="lace-card overflow-hidden mb-4 p-3.5 sm:p-4 bg-gradient-to-r from-pink-50 via-white to-pink-50 relative">
+            <!-- SECTION 1: HEADER & MASCOT BANNER (กล่องที่ 1: miori store มีพื้นหลังขาว) -->
+            <div class="lace-card overflow-hidden mb-4 p-3.5 sm:p-4 relative bg-white">
                 <!-- Admin Edit Button for Header -->
                 <button onclick="openEditStoreModal()" class="admin-only hidden absolute top-2 right-2 bg-amber-400 text-amber-950 hover:bg-amber-500 text-[10px] font-bold px-2 py-1 rounded-lg shadow flex items-center gap-1 z-10 transition">
                     <i class="fa-solid fa-pen-to-square"></i> แก้ไขโลโก้ & ชื่อร้าน
@@ -131,7 +159,7 @@
                     <!-- Header Bio & Details -->
                     <div class="flex-1 min-w-0 text-left space-y-1.5">
                         <!-- Top Tag Header -->
-                        <div class="inline-flex items-center gap-1 px-2.5 py-0.5 bg-pink-100/80 border border-pink-200 text-pink-dark rounded-full text-[10px] font-bold font-mali">
+                        <div class="inline-flex items-center gap-1 px-2.5 py-0.5 border border-pink-300 text-pink-dark rounded-full text-[10px] font-bold font-mali">
                             <i class="fa-solid fa-wand-magic-sparkles text-pink-accent"></i>
                             <span>Review&Check Credit</span>
                         </div>
@@ -145,11 +173,11 @@
 
                         <!-- Sub-details / Badges -->
                         <div class="flex flex-wrap items-center gap-1.5 text-[10px] font-mali pt-0.5">
-                            <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-amber-50 text-amber-700 font-medium border border-amber-200 shadow-sm">
+                            <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-amber-600 font-medium border border-amber-300">
                                 <i class="fa-solid fa-star text-amber-400"></i>
                                 <span>4.9 / 5.0</span>
                             </span>
-                            <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-pink-50 text-pink-dark font-medium border border-pink-200">
+                            <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-pink-dark font-medium border border-pink-300">
                                 <i class="fa-solid fa-comments text-pink-accent"></i>
                                 <span>รีวิวทั้งหมด (<span id="reviewCountBadge">0</span>)</span>
                             </span>
@@ -163,36 +191,41 @@
 
             <!-- SECTION 3: MAIN BODY CONTENT -->
             <div id="mainGridContainer" class="space-y-4">
-                <!-- MAIN CONTENT AREA (แสดงเฉพาะหน้ารีวิว) -->
+                <!-- MAIN CONTENT AREA -->
                 <div id="mainContentArea" class="space-y-4">
                     <!-- REVIEWS TAB CONTENT MAIN -->
                     <div id="tab-reviews" class="space-y-4">
-                        <!-- Customer Action Header & Banner inside Reviews Tab -->
-                        <div id="customerReviewActionCard" class="lace-card overflow-hidden bg-white p-4 space-y-3 text-center relative">
+                        <!-- Customer Action Header & Banner (กล่องที่ 2: เขียนรีวิวให้ร้าน miori store มีพื้นหลังขาว) -->
+                        <div id="customerReviewActionCard" class="lace-card overflow-hidden p-4 space-y-3 text-center relative bg-white">
                             <!-- Admin Edit Button for Banner Card -->
                             <button onclick="openEditBannerModal()" class="admin-only hidden absolute top-2 right-2 bg-amber-400 text-amber-950 hover:bg-amber-500 text-[10px] font-bold px-2 py-1 rounded-lg shadow flex items-center gap-1 z-10 transition">
                                 <i class="fa-solid fa-pen-to-square"></i> แก้ไขแบนเนอร์ & ข้อความ
                             </button>
+
+                            <!-- Title Header (ย้ายเฉพาะหัวข้อมาไว้ข้างบนรูปแบนเนอร์) -->
+                            <div class="space-y-1 pb-1">
+                                <h2 id="displayBannerTitle" class="text-base font-bold font-mali text-pink-dark flex items-center justify-center">
+                                    <i class="fa-solid fa-heart-circle-plus text-pink-accent mr-1.5"></i> เขียนรีวิวให้ร้าน miori store
+                                </h2>
+                            </div>
 
                             <!-- Banner Image (1122x495 Aspect Ratio) -->
                             <div class="relative overflow-hidden rounded-2xl border-2 border-dashed border-pink-200 shadow-sm">
                                 <img id="displayBanner" src="https://placehold.co/1122x495/ffc6d9/ffffff?text=Miori+Review+Banner" alt="Review Banner" class="w-full h-auto object-cover">
                             </div>
                             
+                            <!-- Subtitle Detail Below Banner -->
                             <div class="space-y-1">
-                                <h2 id="displayBannerTitle" class="text-base font-bold font-mali text-pink-dark flex items-center justify-center">
-                                    <i class="fa-solid fa-heart-circle-plus text-pink-accent mr-1.5"></i> เขียนรีวิวให้ร้าน miori store
-                                </h2>
-                                <p id="displayBannerSubtitle" class="text-xs text-gray-500">ร่วมแชร์ความรู้สึก คะแนนดาว และข้อความติชมนะคะ ♡</p>
+                                <p id="displayBannerSubtitle" class="text-xs text-gray-500">ร่วมแชร์ความรู้สึก คะแนนดาว และข้อความติชมนะคะ <i class="fa-solid fa-heart text-pink-accent text-[10px]"></i></p>
                             </div>
 
-                            <!-- ปุ่มเขียนรีวิวแสดงเฉพาะเมื่อไม่ใช้โหมดแอดมิน -->
-                            <button id="writeReviewBtn" onclick="openReviewModal()" class="w-full btn-cute py-2.5 rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center shadow">
+                            <!-- ซ่อนปุ่มเขียนรีวิวเมื่ออยู่ในโหมดแอดมิน เพื่อให้เฉพาะลูกค้าเท่านั้นที่เขียนรีวิวได้ -->
+                            <button id="openReviewBtn" onclick="openReviewModal()" class="w-full btn-cute py-2.5 rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center shadow">
                                 <i class="fa-solid fa-pen-nib mr-2"></i> เขียนรีวิวให้ร้านค้า (Write a Review)
                             </button>
                         </div>
 
-                        <!-- All Reviews List View -->
+                        <!-- All Reviews List View (กล่องที่ 3: รีวิวทั้งหมดจากลูกค้า มีพื้นหลังขาว) -->
                         <div class="lace-card p-4 bg-white">
                             <div class="flex items-center justify-between mb-3 border-b-2 border-dashed border-pink-200 pb-2">
                                 <h3 class="text-xs sm:text-sm font-bold font-mali text-pink-dark">
@@ -200,7 +233,7 @@
                                 </h3>
                                 <span class="text-[10px] text-gray-400 font-mali">เรียลไทม์</span>
                             </div>
-                            <div id="allReviewsContainer" class="space-y-3">
+                            <div id="allReviewsContainer" class="space-y-3 max-h-[480px] overflow-y-auto pr-1">
                                 <!-- Dynamic Reviews Rendered Here -->
                             </div>
                         </div>
@@ -209,16 +242,16 @@
 
                 <!-- SIDEBAR AREA -->
                 <div id="sidebarArea" class="space-y-4">
-                    <!-- BOX 1: Social Links (connect_with_us) -->
-                    <div class="lace-card p-3.5 bg-white relative">
+                    <!-- BOX 1: Social Links (กล่องที่ 4: connect_with_us มีพื้นหลังขาว) -->
+                    <div class="lace-card p-3.5 relative bg-white">
                         <!-- Admin Edit Button for Social Contact -->
                         <button onclick="openEditSocialModal()" class="admin-only hidden absolute top-2 right-2 bg-amber-400 text-amber-950 hover:bg-amber-500 text-[10px] font-bold px-2 py-1 rounded-lg shadow flex items-center gap-1 z-10 transition">
                             <i class="fa-solid fa-pen-to-square"></i> จัดการช่องทางติดต่อ
                         </button>
 
                         <div class="border-b-2 border-dashed border-pink-200 pb-1.5 mb-2.5 text-center pr-12 sm:pr-0">
-                            <h3 class="font-mali font-bold text-pink-dark text-xs">
-                                🎀 connect_with_us 🎀
+                            <h3 class="font-mali font-bold text-pink-dark text-xs flex items-center justify-center gap-1.5">
+                                <i class="fa-solid fa-heart text-pink-accent text-[11px]"></i> connect_with_us <i class="fa-solid fa-heart text-pink-accent text-[11px]"></i>
                             </h3>
                         </div>
                         <div id="customerSocialList" class="space-y-1.5">
@@ -227,7 +260,7 @@
                     </div>
                 </div>
             </div>
-            <!-- SECTION 4: FOOTER -->
+            <!-- SECTION 4: FOOTER (ส่วนท้ายโปร่งใส ข้อมูลอยู่ครบ) -->
             <div class="mt-6 pt-3 border-t-2 border-dashed border-pink-200 text-center space-y-1">
                 <div class="text-pink-accent text-base">
                     🎀 ✦ 🎀 ✦ 🎀
@@ -261,7 +294,7 @@
                 <h3 class="text-sm font-bold font-mali text-pink-dark flex items-center justify-center">
                     <i class="fa-solid fa-heart-circle-plus text-pink-accent mr-1.5"></i> เขียนรีวิวให้ร้าน miori store
                 </h3>
-                <p class="text-[10px] text-gray-500">แบ่งปันความประทับใจให้กับเรานะคะ ♡</p>
+                <p class="text-[10px] text-gray-500">แบ่งปันความประทับใจให้กับเรานะคะ <i class="fa-solid fa-heart text-pink-accent text-[9px]"></i></p>
             </div>
 
             <!-- Review Form -->
@@ -273,11 +306,11 @@
                 <div>
                     <label class="block text-[11px] font-bold text-gray-700 mb-1">ให้คะแนนร้านค้า *</label>
                     <select id="revRating" class="w-full text-xs p-2 border border-pink-200 rounded-lg focus:outline-pink-accent bg-white">
-                        <option value="5">⭐⭐⭐⭐⭐ (5/5 ประทับใจมากที่สุด!)</option>
-                        <option value="4">⭐⭐⭐⭐ (4/5 ดีมากค่ะ)</option>
-                        <option value="3">⭐⭐⭐ (3/5 ปานกลาง)</option>
-                        <option value="2">⭐⭐ (2/5 ควรปรับปรุง)</option>
-                        <option value="1">⭐ (1/5 ไม่ประทับใจ)</option>
+                        <option value="5">5 / 5 - ประทับใจมากที่สุด!</option>
+                        <option value="4">4 / 5 - ดีมากค่ะ</option>
+                        <option value="3">3 / 5 - ปานกลาง</option>
+                        <option value="2">2 / 5 - ควรปรับปรุง</option>
+                        <option value="1">1 / 5 - ไม่ประทับใจ</option>
                     </select>
                 </div>
                 <div>
@@ -452,7 +485,34 @@
             renderSocialLinks();
             renderReviews();
             updateReviewCountBadge();
+            startHeartRain();
         };
+
+        // Heart Rain Effect
+        function startHeartRain() {
+            const container = document.getElementById('heartContainer');
+            if (!container) return;
+
+            const hearts = ['fa-heart', 'fa-heart-pulse', 'fa-heart text-pink-300', 'fa-heart text-pink-400'];
+
+            setInterval(() => {
+                const heart = document.createElement('i');
+                const randomHeart = hearts[Math.floor(Math.random() * hearts.length)];
+                
+                heart.className = `fa-solid ${randomHeart} heart-particle`;
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.fontSize = (Math.random() * 12 + 10) + 'px';
+                
+                const duration = Math.random() * 4 + 4; // 4s - 8s
+                heart.style.animationDuration = duration + 's';
+                
+                container.appendChild(heart);
+
+                setTimeout(() => {
+                    heart.remove();
+                }, duration * 1000);
+            }, 600);
+        }
 
         // Modal Helpers
         function openModal(id) {
@@ -551,7 +611,7 @@
                     state.socialLinks.forEach(item => {
                         const targetUrl = item.url ? item.url : "#";
                         customerContainer.innerHTML += `
-                            <a href="${escapeHtml(targetUrl)}" ${item.url ? 'target="_blank" rel="noopener noreferrer"' : 'onclick="event.preventDefault(); showToast(\'ไม่มีลิงก์ปลายทาง\')"' } class="flex items-center p-2 rounded-xl bg-pink-50 hover:bg-pink-100 transition border border-pink-200 text-xs font-mali text-pink-dark">
+                            <a href="${escapeHtml(targetUrl)}" ${item.url ? 'target="_blank" rel="noopener noreferrer"' : 'onclick="event.preventDefault(); showToast(\'ไม่มีลิงก์ปลายทาง\')"' } class="flex items-center p-2 rounded-xl border border-pink-200 text-xs font-mali text-pink-dark hover:border-pink-400 transition">
                                 <i class="${escapeHtml(item.icon)} text-sm mr-2 text-pink-accent"></i>
                                 <span class="truncate flex-1">${escapeHtml(item.title)}</span>
                                 <i class="fa-solid fa-arrow-up-right-from-square text-[10px] text-pink-300"></i>
@@ -616,20 +676,18 @@
             state.isAdmin = !state.isAdmin;
             const toggleBtn = document.getElementById('adminToggleBtn');
             const adminButtons = document.querySelectorAll('.admin-only');
-            const writeReviewBtn = document.getElementById('writeReviewBtn');
+            const openReviewBtn = document.getElementById('openReviewBtn');
            
             if (state.isAdmin) {
                 adminButtons.forEach(btn => btn.classList.remove('hidden'));
-                if (writeReviewBtn) writeReviewBtn.classList.add('hidden'); // ซ่อนปุ่มเขียนรีวิวไม่ให้แอดมินเขียนเอง
-                
+                if (openReviewBtn) openReviewBtn.classList.add('hidden'); // ซ่อนปุ่มเขียนรีวิวไม่ให้แอดมินเห็น
                 toggleBtn.classList.remove('bg-white', 'text-pink-dark');
                 toggleBtn.classList.add('bg-amber-400', 'text-amber-950');
                 toggleBtn.innerHTML = `<i class="fa-solid fa-check mr-1"></i> อยู่ในโหมดแอดมิน (กดปุ่มแก้ไขตามจุดได้เลย)`;
-                showToast("เข้าสู่โหมดแอดมิน: สามารถอนุมัติ/ซ่อน/ลบ รีวิวได้");
+                showToast("เข้าสู่โหมดแอดมิน: สามารถคลิกปุ่มแก้ไขตามจุดต่างๆ ได้ทันที");
             } else {
                 adminButtons.forEach(btn => btn.classList.add('hidden'));
-                if (writeReviewBtn) writeReviewBtn.classList.remove('hidden'); // แสดงปุ่มเขียนรีวิวสำหรับลูกค้า
-                
+                if (openReviewBtn) openReviewBtn.classList.remove('hidden'); // แสดงปุ่มเขียนรีวิวสำหรับลูกค้า
                 toggleBtn.classList.remove('bg-amber-400', 'text-amber-950');
                 toggleBtn.classList.add('bg-white', 'text-pink-dark');
                 toggleBtn.innerHTML = `<i class="fa-solid fa-user-gear mr-1"></i> เข้าสู่ระบบแอดมิน (Admin Mode)`;
@@ -667,7 +725,7 @@
                 review.status = newStatus;
                 renderReviews();
                 updateReviewCountBadge();
-                showToast(`อัปเดตสถานะรีวิวเรียบร้อย: ${newStatus === 'approved' ? 'อนุมัติแล้ว' : 'ซ่อนแล้ว'}`);
+                showToast(`อัปเดตสถานะรีวิวเรียบร้อย: ${newStatus}`);
             }
         }
 
@@ -681,33 +739,43 @@
         function renderReviews() {
             const container = document.getElementById('allReviewsContainer');
             container.innerHTML = '';
-            const approvedReviews = state.reviews.filter(r => r.status === 'approved');
-           
+            
             state.reviews.forEach(r => {
                 if (!state.isAdmin && r.status !== 'approved') return;
-                const stars = '⭐'.repeat(r.rating);
+                
+                // สร้างไอคอนรูปดาวตามจำนวนคะแนน
+                let starsHtml = '';
+                for (let i = 0; i < 5; i++) {
+                    if (i < r.rating) {
+                        starsHtml += '<i class="fa-solid fa-star text-amber-400 mr-0.5"></i>';
+                    } else {
+                        starsHtml += '<i class="fa-solid fa-star text-gray-200 mr-0.5"></i>';
+                    }
+                }
+
                 const isPending = r.status === 'pending';
                 const isHidden = r.status === 'hidden';
                 let statusBadge = '';
                 if (state.isAdmin) {
-                    if (r.status === 'approved') statusBadge = '<span class="text-[9px] bg-emerald-100 text-emerald-700 px-1.5 py-0.5 rounded-full font-bold">อนุมัติแล้ว</span>';
+                    if (r.status === 'approved') statusBadge = '<span class="text-[9px] bg-emerald-100 text-emerald-700 px-1.5 py-0.5 rounded-full font-bold">อนุมัติ</span>';
                     else if (r.status === 'pending') statusBadge = '<span class="text-[9px] bg-amber-100 text-amber-700 px-1.5 py-0.5 rounded-full font-bold">รออนุมัติ</span>';
                     else if (r.status === 'hidden') statusBadge = '<span class="text-[9px] bg-gray-200 text-gray-700 px-1.5 py-0.5 rounded-full font-bold">ซ่อนอยู่</span>';
                 }
+
                 const cardHtml = `
-                    <div class="p-3 rounded-xl border-2 ${isPending ? 'border-amber-300 bg-amber-50/40' : isHidden ? 'border-gray-300 bg-gray-50' : 'border-pink-100 bg-pink-50/30'} space-y-1.5 relative transition hover:shadow-sm text-xs">
+                    <div class="p-3 rounded-xl border ${isPending ? 'border-amber-300' : isHidden ? 'border-gray-300' : 'border-pink-200'} space-y-1.5 relative transition hover:shadow-sm text-xs">
                         <div class="flex items-center justify-between">
                             <div class="flex items-center gap-1.5">
-                                <span class="font-bold text-pink-dark font-mali"><i class="fa-solid fa-user-heart mr-1"></i> ${escapeHtml(r.author)}</span>
+                                <span class="font-bold text-pink-dark font-mali"><i class="fa-solid fa-circle-user mr-1 text-pink-accent"></i> ${escapeHtml(r.author)}</span>
                                 ${statusBadge}
                             </div>
                             <span class="text-[10px] text-gray-400 font-mono">${r.date}</span>
                         </div>
-                        <div class="text-[11px] text-amber-400">${stars}</div>
+                        <div class="text-[11px] flex items-center">${starsHtml}</div>
                         <p class="text-gray-700 leading-relaxed font-kanit">${escapeHtml(r.comment)}</p>
                         ${state.isAdmin ? `
                             <div class="pt-1.5 border-t border-pink-200/60 flex items-center gap-1.5 justify-end text-[11px] font-mali">
-                                ${r.status !== 'approved' ? `<button onclick="updateReviewStatus(${r.id}, 'approved')" class="px-2.5 py-0.5 bg-emerald-500 text-white rounded hover:bg-emerald-600 font-bold"><i class="fa-solid fa-check"></i> อนุมัติ</button>` : ''}
+                                ${r.status !== 'approved' ? `<button onclick="updateReviewStatus(${r.id}, 'approved')" class="px-2 py-0.5 bg-emerald-500 text-white rounded hover:bg-emerald-600"><i class="fa-solid fa-check"></i> อนุมัติ</button>` : ''}
                                 ${r.status !== 'hidden' ? `<button onclick="updateReviewStatus(${r.id}, 'hidden')" class="px-2 py-0.5 bg-amber-500 text-white rounded hover:bg-amber-600"><i class="fa-solid fa-eye-slash"></i> ซ่อน</button>` : ''}
                                 <button onclick="deleteReview(${r.id})" class="px-2 py-0.5 bg-rose-500 text-white rounded hover:bg-rose-600"><i class="fa-solid fa-trash"></i> ลบ</button>
                             </div>
