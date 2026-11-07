@@ -342,8 +342,12 @@
                     <input type="text" id="editStoreName" class="w-full text-xs p-2 border border-pink-200 rounded-lg focus:outline-pink-accent">
                 </div>
                 <div>
-                    <label class="block text-[11px] font-bold text-gray-700 mb-1">URL รูปโลโก้/มาสคอต</label>
-                    <input type="text" id="editStoreLogo" class="w-full text-xs p-2 border border-pink-200 rounded-lg focus:outline-pink-accent">
+                    <label class="block text-[11px] font-bold text-gray-700 mb-1"><i class="fa-solid fa-upload mr-1 text-pink-accent"></i> อัปโหลดรูปโลโก้/มาสคอต จากอุปกรณ์</label>
+                    <input type="file" id="editStoreLogoFile" accept="image/*" class="w-full text-xs p-1.5 border border-pink-200 rounded-lg bg-pink-50 text-gray-700 file:mr-2 file:py-1 file:px-2 file:rounded-md file:border-0 file:text-[11px] file:font-bold file:bg-pink-accent file:text-white hover:file:bg-pink-dark transition">
+                </div>
+                <div>
+                    <label class="block text-[10px] text-gray-400 mb-0.5">หรือระบุ URL รูปภาพโลโก้</label>
+                    <input type="text" id="editStoreLogo" placeholder="https://..." class="w-full text-xs p-2 border border-pink-200 rounded-lg focus:outline-pink-accent">
                 </div>
                 <button onclick="saveStoreInfo()" class="w-full py-2 btn-cute rounded-xl text-xs font-bold">
                     <i class="fa-solid fa-floppy-disk mr-1"></i> บันทึกการแก้ไข
@@ -365,8 +369,12 @@
             </div>
             <div class="space-y-3">
                 <div>
-                    <label class="block text-[11px] font-bold text-gray-700 mb-1">URL รูปแบนเนอร์ (ขนาด 1122x495)</label>
-                    <input type="text" id="editBannerUrl" class="w-full text-xs p-2 border border-pink-200 rounded-lg focus:outline-pink-accent">
+                    <label class="block text-[11px] font-bold text-gray-700 mb-1"><i class="fa-solid fa-upload mr-1 text-pink-accent"></i> อัปโหลดรูปแบนเนอร์ จากอุปกรณ์ (1122x495)</label>
+                    <input type="file" id="editBannerFile" accept="image/*" class="w-full text-xs p-1.5 border border-pink-200 rounded-lg bg-pink-50 text-gray-700 file:mr-2 file:py-1 file:px-2 file:rounded-md file:border-0 file:text-[11px] file:font-bold file:bg-pink-accent file:text-white hover:file:bg-pink-dark transition">
+                </div>
+                <div>
+                    <label class="block text-[10px] text-gray-400 mb-0.5">หรือระบุ URL รูปแบนเนอร์</label>
+                    <input type="text" id="editBannerUrl" placeholder="https://..." class="w-full text-xs p-2 border border-pink-200 rounded-lg focus:outline-pink-accent">
                 </div>
                 <div>
                     <label class="block text-[11px] font-bold text-gray-700 mb-1">ข้อความหัวข้อ</label>
@@ -489,6 +497,152 @@
             startHeartRain();
         };
 
+        // Render Store Info
+        function renderStoreDetails() {
+            const nameEl = document.getElementById('displayStoreName');
+            const descEl = document.getElementById('displayStoreDesc');
+            const logoEl = document.getElementById('displayLogo');
+            if (nameEl) nameEl.innerText = state.storeName;
+            if (descEl) descEl.innerText = state.storeDesc;
+            if (logoEl) logoEl.src = state.logoUrl;
+        }
+
+        // Render Banner Details
+        function renderBannerDetails() {
+            const bannerEl = document.getElementById('displayBanner');
+            const titleEl = document.getElementById('displayBannerTitle');
+            const subEl = document.getElementById('displayBannerSubtitle');
+            if (bannerEl) bannerEl.src = state.bannerUrl;
+            if (titleEl) titleEl.innerHTML = `<i class="fa-solid fa-heart-circle-plus text-pink-accent mr-1.5"></i> ${escapeHtml(state.bannerTitle)}`;
+            if (subEl) subEl.innerHTML = `${escapeHtml(state.bannerSubtitle)} <i class="fa-solid fa-heart text-pink-accent text-[10px]"></i>`;
+        }
+
+        // Render Social Links
+        function renderSocialLinks() {
+            const container = document.getElementById('customerSocialList');
+            const adminContainer = document.getElementById('adminSocialListModal');
+            if (!container) return;
+
+            container.innerHTML = '';
+            if (adminContainer) adminContainer.innerHTML = '';
+
+            state.socialLinks.forEach(item => {
+                container.innerHTML += `
+                    <a href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between p-2 rounded-xl bg-pink-50/60 hover:bg-pink-100/80 border border-pink-200 transition text-xs font-mali group">
+                        <div class="flex items-center gap-2">
+                            <i class="${item.icon} text-pink-accent text-sm"></i>
+                            <span class="text-pink-dark font-medium">${escapeHtml(item.title)}</span>
+                        </div>
+                        <i class="fa-solid fa-arrow-up-right-from-square text-[10px] text-pink-accent opacity-70 group-hover:opacity-100"></i>
+                    </a>
+                `;
+
+                if (adminContainer) {
+                    adminContainer.innerHTML += `
+                        <div class="flex items-center justify-between p-1.5 bg-gray-50 border border-gray-200 rounded text-xs">
+                            <div class="flex items-center gap-1.5 truncate">
+                                <i class="${item.icon} text-pink-accent"></i>
+                                <span class="truncate font-bold">${escapeHtml(item.title)}</span>
+                            </div>
+                            <button onclick="removeSocialLink(${item.id})" class="text-rose-500 hover:text-rose-700 px-1.5 py-0.5"><i class="fa-solid fa-trash"></i></button>
+                        </div>
+                    `;
+                }
+            });
+        }
+
+        // Admin Toggle
+        function toggleAdminPanel() {
+            state.isAdmin = !state.isAdmin;
+            const btn = document.getElementById('adminToggleBtn');
+            const adminElements = document.querySelectorAll('.admin-only');
+            const openReviewBtn = document.getElementById('openReviewBtn');
+
+            if (state.isAdmin) {
+                if (btn) btn.innerHTML = '<i class="fa-solid fa-crown text-amber-500"></i>';
+                adminElements.forEach(el => el.classList.remove('hidden'));
+                if (openReviewBtn) openReviewBtn.classList.add('hidden');
+                showToast("เข้าสู่โหมดแอดมิน (Admin Mode) เรียบร้อยค่ะ ✨");
+            } else {
+                if (btn) btn.innerHTML = '<i class="fa-solid fa-heart text-pink-accent"></i>';
+                adminElements.forEach(el => el.classList.add('hidden'));
+                if (openReviewBtn) openReviewBtn.classList.remove('hidden');
+                showToast("ออกจากโหมดแอดมินแล้วค่ะ 💕");
+            }
+            renderReviews();
+        }
+
+        // Social Links Actions
+        function openEditSocialModal() {
+            renderSocialLinks();
+            openModal('editSocialModal');
+        }
+
+        function addSocialLink() {
+            const icon = document.getElementById('newSocialIcon').value;
+            const title = document.getElementById('newSocialTitle').value.trim();
+            const url = document.getElementById('newSocialUrl').value.trim();
+
+            if (!title || !url) {
+                showToast("กรุณากรอกข้อความและ URL ให้ครบถ้วนค่ะ");
+                return;
+            }
+
+            state.socialLinks.push({
+                id: Date.now(),
+                icon: icon,
+                title: title,
+                url: url
+            });
+
+            document.getElementById('newSocialTitle').value = '';
+            document.getElementById('newSocialUrl').value = '';
+            renderSocialLinks();
+            showToast("เพิ่มช่องทางติดต่อเรียบร้อยค่ะ ✨");
+        }
+
+        function removeSocialLink(id) {
+            state.socialLinks = state.socialLinks.filter(item => item.id !== id);
+            renderSocialLinks();
+            showToast("ลบช่องทางติดต่อเรียบร้อยค่ะ");
+        }
+
+        // Submit Review
+        function submitReview(event) {
+            event.preventDefault();
+            const author = document.getElementById('revAuthor').value.trim();
+            const rating = parseInt(document.getElementById('revRating').value);
+            const comment = document.getElementById('revComment').value.trim();
+
+            if (!author || !comment) return;
+
+            const newReview = {
+                id: Date.now(),
+                author: author,
+                rating: rating,
+                comment: comment,
+                date: new Date().toISOString().split('T')[0],
+                status: 'approved'
+            };
+
+            state.reviews.unshift(newReview);
+            renderReviews();
+            updateReviewCountBadge();
+            closeReviewModal();
+            document.getElementById('reviewForm').reset();
+            showToast("ส่งรีวิวเรียบร้อย ขอบคุณมากๆ นะคะ! 💕");
+        }
+
+        function updateReviewStatus(id, newStatus) {
+            const rev = state.reviews.find(r => r.id === id);
+            if (rev) {
+                rev.status = newStatus;
+                renderReviews();
+                updateReviewCountBadge();
+                showToast("อัปเดตสถานะรีวิวเรียบร้อยค่ะ");
+            }
+        }
+
         // Heart Rain Effect
         function startHeartRain() {
             const container = document.getElementById('heartContainer');
@@ -552,17 +706,32 @@
         function openEditStoreModal() {
             document.getElementById('editStoreName').value = state.storeName;
             document.getElementById('editStoreLogo').value = state.logoUrl;
+            document.getElementById('editStoreLogoFile').value = '';
             openModal('editStoreModal');
         }
 
         function saveStoreInfo() {
             const name = document.getElementById('editStoreName').value.trim();
-            const logo = document.getElementById('editStoreLogo').value.trim();
+            const logoUrlInput = document.getElementById('editStoreLogo').value.trim();
+            const fileInput = document.getElementById('editStoreLogoFile');
+            
             if (name) state.storeName = name;
-            if (logo) state.logoUrl = logo;
-            renderStoreDetails();
-            closeModal('editStoreModal');
-            showToast("อัปเดตข้อมูลร้านค้าเรียบร้อยค่ะ ✨");
+
+            if (fileInput && fileInput.files && fileInput.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    state.logoUrl = e.target.result;
+                    renderStoreDetails();
+                    closeModal('editStoreModal');
+                    showToast("อัปเดตโลโก้ร้านจากไฟล์เรียบร้อยค่ะ ✨");
+                };
+                reader.readAsDataURL(fileInput.files[0]);
+            } else {
+                if (logoUrlInput) state.logoUrl = logoUrlInput;
+                renderStoreDetails();
+                closeModal('editStoreModal');
+                showToast("อัปเดตข้อมูลร้านค้าเรียบร้อยค่ะ ✨");
+            }
         }
 
         // Banner Modal
@@ -570,165 +739,33 @@
             document.getElementById('editBannerUrl').value = state.bannerUrl;
             document.getElementById('editBannerTitle').value = state.bannerTitle;
             document.getElementById('editBannerSubtitle').value = state.bannerSubtitle;
+            document.getElementById('editBannerFile').value = '';
             openModal('editBannerModal');
         }
 
         function saveBannerInfo() {
-            const url = document.getElementById('editBannerUrl').value.trim();
+            const bannerUrlInput = document.getElementById('editBannerUrl').value.trim();
             const title = document.getElementById('editBannerTitle').value.trim();
             const subtitle = document.getElementById('editBannerSubtitle').value.trim();
-            if (url) state.bannerUrl = url;
+            const fileInput = document.getElementById('editBannerFile');
+
             if (title) state.bannerTitle = title;
             if (subtitle) state.bannerSubtitle = subtitle;
-            renderBannerDetails();
-            closeModal('editBannerModal');
-            showToast("อัปเดตแบนเนอร์เรียบร้อยค่ะ ✨");
-        }
 
-        // Social Contacts Modal
-        function openEditSocialModal() {
-            renderAdminSocialModalList();
-            openModal('editSocialModal');
-        }
-
-        function renderStoreDetails() {
-            document.getElementById('displayStoreName').innerText = state.storeName;
-            document.getElementById('displayLogo').src = state.logoUrl;
-        }
-
-        function renderBannerDetails() {
-            document.getElementById('displayBanner').src = state.bannerUrl;
-            document.getElementById('displayBannerTitle').innerHTML = `<i class="fa-solid fa-heart-circle-plus text-pink-accent mr-1.5"></i> ${escapeHtml(state.bannerTitle)}`;
-            document.getElementById('displayBannerSubtitle').innerText = state.bannerSubtitle;
-        }
-
-        function renderSocialLinks() {
-            const customerContainer = document.getElementById('customerSocialList');
-            if (customerContainer) {
-                customerContainer.innerHTML = '';
-                if (state.socialLinks.length === 0) {
-                    customerContainer.innerHTML = `<p class="text-xs text-gray-400 text-center py-1">ยังไม่มีช่องทางติดต่อ</p>`;
-                } else {
-                    state.socialLinks.forEach(item => {
-                        const targetUrl = item.url ? item.url : "#";
-                        customerContainer.innerHTML += `
-                            <a href="${escapeHtml(targetUrl)}" ${item.url ? 'target="_blank" rel="noopener noreferrer"' : 'onclick="event.preventDefault(); showToast(\'ไม่มีลิงก์ปลายทาง\')"' } class="flex items-center p-2 rounded-xl border border-pink-200 text-xs font-mali text-pink-dark hover:border-pink-400 transition">
-                                <i class="${escapeHtml(item.icon)} text-sm mr-2 text-pink-accent"></i>
-                                <span class="truncate flex-1">${escapeHtml(item.title)}</span>
-                                <i class="fa-solid fa-arrow-up-right-from-square text-[10px] text-pink-300"></i>
-                            </a>
-                        `;
-                    });
-                }
-            }
-            renderAdminSocialModalList();
-        }
-
-        function renderAdminSocialModalList() {
-            const adminContainer = document.getElementById('adminSocialListModal');
-            if (!adminContainer) return;
-            adminContainer.innerHTML = '';
-            state.socialLinks.forEach(item => {
-                adminContainer.innerHTML += `
-                    <div class="flex items-center justify-between p-2 bg-gray-50 rounded-lg border border-gray-200 text-xs gap-2">
-                        <div class="flex items-center gap-2 truncate min-w-0">
-                            <i class="${escapeHtml(item.icon)} text-pink-accent text-sm"></i>
-                            <div class="truncate">
-                                <span class="truncate font-mali font-bold text-gray-700 block text-[11px]">${escapeHtml(item.title)}</span>
-                                <span class="truncate text-[9px] text-gray-400 block">${escapeHtml(item.url || 'ไม่มีลิงก์')}</span>
-                            </div>
-                        </div>
-                        <button onclick="deleteSocialLink(${item.id})" class="text-rose-500 hover:text-rose-700 p-1 text-xs flex-shrink-0">
-                            <i class="fa-solid fa-trash"></i>
-                        </button>
-                    </div>
-                `;
-            });
-        }
-
-        function addSocialLink() {
-            const icon = document.getElementById('newSocialIcon').value;
-            const title = document.getElementById('newSocialTitle').value.trim();
-            const url = document.getElementById('newSocialUrl').value.trim();
-            if (!title) {
-                showToast("กรุณากรอกข้อความที่ต้องการแสดง");
-                return;
-            }
-            const newSocial = {
-                id: Date.now(),
-                icon: icon,
-                title: title,
-                url: url
-            };
-            state.socialLinks.push(newSocial);
-            document.getElementById('newSocialTitle').value = '';
-            document.getElementById('newSocialUrl').value = '';
-            renderSocialLinks();
-            showToast("เพิ่มช่องทางติดต่อเรียบร้อยแล้วค่ะ ✨");
-        }
-
-        function deleteSocialLink(id) {
-            state.socialLinks = state.socialLinks.filter(item => item.id !== id);
-            renderSocialLinks();
-            showToast("ลบช่องทางติดต่อแล้ว");
-        }
-
-        function toggleAdminPanel() {
-            state.isAdmin = !state.isAdmin;
-            const toggleBtn = document.getElementById('adminToggleBtn');
-            const adminButtons = document.querySelectorAll('.admin-only');
-            const openReviewBtn = document.getElementById('openReviewBtn');
-           
-            if (state.isAdmin) {
-                adminButtons.forEach(btn => btn.classList.remove('hidden'));
-                if (openReviewBtn) openReviewBtn.classList.add('hidden'); // ซ่อนปุ่มเขียนรีวิวไม่ให้แอดมินเห็น
-                toggleBtn.classList.remove('bg-white', 'text-pink-dark');
-                toggleBtn.classList.add('bg-amber-400', 'text-amber-950', 'ring-2', 'ring-amber-200');
-                toggleBtn.innerHTML = `<i class="fa-solid fa-crown text-amber-950"></i>`;
-                toggleBtn.title = "อยู่ในโหมดแอดมิน (คลิกเพื่อออกจากระบบ)";
-                showToast("เข้าสู่โหมดแอดมิน: สามารถคลิกปุ่มแก้ไขตามจุดต่างๆ ได้ทันที");
+            if (fileInput && fileInput.files && fileInput.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    state.bannerUrl = e.target.result;
+                    renderBannerDetails();
+                    closeModal('editBannerModal');
+                    showToast("อัปเดตแบนเนอร์จากไฟล์เรียบร้อยค่ะ ✨");
+                };
+                reader.readAsDataURL(fileInput.files[0]);
             } else {
-                adminButtons.forEach(btn => btn.classList.add('hidden'));
-                if (openReviewBtn) openReviewBtn.classList.remove('hidden'); // แสดงปุ่มเขียนรีวิวสำหรับลูกค้า
-                toggleBtn.classList.remove('bg-amber-400', 'text-amber-950', 'ring-2', 'ring-amber-200');
-                toggleBtn.classList.add('bg-white', 'text-pink-dark');
-                toggleBtn.innerHTML = `<i class="fa-solid fa-heart text-pink-accent"></i>`;
-                toggleBtn.title = "เข้าสู่ระบบแอดมิน (Admin Mode)";
-                showToast("ออกจากโหมดแอดมินแล้ว");
-            }
-            renderReviews();
-        }
-
-        function submitReview(event) {
-            event.preventDefault();
-            const author = document.getElementById('revAuthor').value.trim();
-            const rating = parseInt(document.getElementById('revRating').value);
-            const comment = document.getElementById('revComment').value.trim();
-            if (!author || !comment) return;
-            const newReview = {
-                id: Date.now(),
-                author: author,
-                rating: rating,
-                comment: comment,
-                date: new Date().toISOString().split('T')[0],
-                status: "pending"
-            };
-            state.reviews.unshift(newReview);
-            document.getElementById('reviewForm').reset();
-            closeReviewModal();
-            renderReviews();
-            updateReviewCountBadge();
-           
-            showToast("ส่งรีวิวเรียบร้อยแล้ว! (รอแอดมินอนุมัติก่อนขึ้นแสดง)");
-        }
-
-        function updateReviewStatus(id, newStatus) {
-            const review = state.reviews.find(r => r.id === id);
-            if (review) {
-                review.status = newStatus;
-                renderReviews();
-                updateReviewCountBadge();
-                showToast(`อัปเดตสถานะรีวิวเรียบร้อย: ${newStatus}`);
+                if (bannerUrlInput) state.bannerUrl = bannerUrlInput;
+                renderBannerDetails();
+                closeModal('editBannerModal');
+                showToast("อัปเดตแบนเนอร์เรียบร้อยค่ะ ✨");
             }
         }
 
