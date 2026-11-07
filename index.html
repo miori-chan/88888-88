@@ -132,8 +132,9 @@
     <!-- Top Ribbon Aesthetic Decorative Bar -->
     <div class="w-full bg-pink-accent text-white text-xs py-1.5 text-center font-mali tracking-wide flex justify-between px-3 sm:px-6 items-center shadow-sm relative z-20">
         <span class="truncate"><i class="fa-solid fa-heart mr-1"></i> Welcome to Miori Store 💕</span>
-        <button id="adminToggleBtn" onclick="toggleAdminPanel()" class="bg-white text-pink-dark px-3 py-1 rounded-full text-xs font-semibold hover:bg-pink-100 transition shadow-sm flex-shrink-0">
-            <i class="fa-solid fa-user-gear mr-1"></i> เข้าสู่ระบบแอดมิน (Admin Mode)
+        <!-- ปรับเปลี่ยนปุ่มเข้าสู่โหมดแอดมินให้เป็นปุ่มทรงกลมรูปหัวใจเล็กๆ สุดคาวาอี้ -->
+        <button id="adminToggleBtn" onclick="toggleAdminPanel()" title="เข้าสู่ระบบแอดมิน (Admin Mode)" class="w-7 h-7 rounded-full bg-white text-pink-dark hover:bg-pink-100 transition shadow-sm flex items-center justify-center flex-shrink-0 text-xs">
+            <i class="fa-solid fa-heart text-pink-accent"></i>
         </button>
     </div>
     <!-- Main Mobile-Centric Container (กำหนด z-10 เพื่อให้อยู่ด้านบนของหัวใจโปรยเสมอ) -->
@@ -682,15 +683,17 @@
                 adminButtons.forEach(btn => btn.classList.remove('hidden'));
                 if (openReviewBtn) openReviewBtn.classList.add('hidden'); // ซ่อนปุ่มเขียนรีวิวไม่ให้แอดมินเห็น
                 toggleBtn.classList.remove('bg-white', 'text-pink-dark');
-                toggleBtn.classList.add('bg-amber-400', 'text-amber-950');
-                toggleBtn.innerHTML = `<i class="fa-solid fa-check mr-1"></i> อยู่ในโหมดแอดมิน (กดปุ่มแก้ไขตามจุดได้เลย)`;
+                toggleBtn.classList.add('bg-amber-400', 'text-amber-950', 'ring-2', 'ring-amber-200');
+                toggleBtn.innerHTML = `<i class="fa-solid fa-crown text-amber-950"></i>`;
+                toggleBtn.title = "อยู่ในโหมดแอดมิน (คลิกเพื่อออกจากระบบ)";
                 showToast("เข้าสู่โหมดแอดมิน: สามารถคลิกปุ่มแก้ไขตามจุดต่างๆ ได้ทันที");
             } else {
                 adminButtons.forEach(btn => btn.classList.add('hidden'));
                 if (openReviewBtn) openReviewBtn.classList.remove('hidden'); // แสดงปุ่มเขียนรีวิวสำหรับลูกค้า
-                toggleBtn.classList.remove('bg-amber-400', 'text-amber-950');
+                toggleBtn.classList.remove('bg-amber-400', 'text-amber-950', 'ring-2', 'ring-amber-200');
                 toggleBtn.classList.add('bg-white', 'text-pink-dark');
-                toggleBtn.innerHTML = `<i class="fa-solid fa-user-gear mr-1"></i> เข้าสู่ระบบแอดมิน (Admin Mode)`;
+                toggleBtn.innerHTML = `<i class="fa-solid fa-heart text-pink-accent"></i>`;
+                toggleBtn.title = "เข้าสู่ระบบแอดมิน (Admin Mode)";
                 showToast("ออกจากโหมดแอดมินแล้ว");
             }
             renderReviews();
